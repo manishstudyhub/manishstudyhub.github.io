@@ -1,1 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manish Study Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh; 
+            padding: 20px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header {
+            background: white; 
+            border-radius: 15px; 
+            padding: 20px;
+            text-align: center; 
+            margin-bottom: 20px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .profile-photo {
+            width: 120px; 
+            height: 120px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            border: 4px solid #4CAF50; 
+            margin-bottom: 10px;
+        }
+        .site-title { font-size: 2rem; color: #333; margin-bottom: 5px; }
+        .site-subtitle { color: #666; font-size: 1rem; }
+        
+        .class-btn {
+            background: #4CAF50; 
+            color: white; 
+            border: none; 
+            padding: 15px 20px;
+            border-radius: 10px; 
+            font-size: 1.1rem; 
+            font-weight: bold;
+            cursor: pointer; 
+            margin: 10px 5px; 
+            width: 100%;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+        .class-btn:hover { 
+            background: #45a049; 
+            transform: translateY(-2px);
+        }
+        
+        .notes-container { display: none; margin-top: 15px; }
+        
+        .subject-box {
+            background: #e8f5e9; 
+            border: 2px solid #4CAF50;
+            border-radius: 10px; 
+            padding: 15px; 
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .subject-title {
+            font-size: 1.3rem; 
+            font-weight: bold; 
+            color: #2e7d32;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .arrow { font-size: 1.5rem; transition: 0.3s; }
+        .rotate { transform: rotate(90deg); }
+        
+        .questions { 
+            display: none; 
+            margin-top: 15px; 
+            padding-top: 15px;
+            border-top: 2px dashed #4CAF50;
+        }
+        .question-box { 
+            background: white; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin: 10px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        .question { font-weight: bold; color: #333; margin-bottom: 8px; }
+        .answer { color: #555; line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="IMG_20260517_103524_841.webp" alt="मनीष" class="profile-photo">
+            <h1 class="site-title">मनीष स्टडी हब</h1>
+            <p class="site-subtitle">आपका सर्वश्रेष्ठ शिक्षण गंतव्य</p>
+        </div>
 
+        <button class="class-btn" onclick="toggleClass('class12')">📘 कक्षा 12 के नोट्स</button>
+        <div id="class12" class="notes-container">
+            
+            <div class="subject-box" onclick="toggleSubject('phy12')">
+                <div class="subject-title">
+                    Physics <span class="arrow" id="arrow-phy12">▶</span>
+                </div>
+                <div id="phy12" class="questions">
+                    <div class="question-box">
+                        <div class="question">Q1. State Coulomb's Law.</div>
+                        <div class="answer">The force between two point charges is directly proportional to product of charges and inversely proportional to square of distance between them. F = k(q1*q2)/r²</div>
+                    </div>
+                    <div class="question-box">
+                        <div class="question">Q2. What is Electric Field Intensity?</div>
+                        <div class="answer">Force experienced by a unit positive charge placed at that point. E = F/q. Unit: N/C or V/m</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subject-box" onclick="toggleSubject('chem12')">
+                <div class="subject-title">
+                    Chemistry <span class="arrow" id="arrow-chem12">▶</span>
+                </div>
+                <div id="chem12" class="questions">
+                    <div class="question-box">
+                        <div class="question">Q1. Define Mole Concept.</div>
+                        <div class="answer">One mole is amount of substance that contains 6.022 × 10²³ particles. Avogadro Number = 6.022 × 10²³</div>
+                    </div>
+                    <div class="question-box">
+                        <div class="question">Q2. What is Molarity?</div>
+                        <div class="answer">Number of moles of solute present in 1 litre of solution. M = moles of solute / Volume of solution in L</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="class-btn" onclick="toggleClass('class11')">📗 कक्षा 11 के नोट्स</button>
+        <div id="class11" class="notes-container">
+            <div class="subject-box">
+                <div class="subject-title">Coming Soon...</div>
+            </div>
+        </div>
+
+        <button class="class-btn" onclick="toggleClass('class10')">📙 कक्षा 10 के नोट्स</button>
+        <div id="class10" class="notes-container">
+            <div class="subject-box">
+                <div class="subject-title">Coming Soon...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleClass(classId) {
+            var x = document.getElementById(classId);
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+        
+        function toggleSubject(subjectId) {
+            var x = document.getElementById(subjectId);
+            var arrow = document.getElementById("arrow-" + subjectId);
+            if (x.style.display === "block") {
+                x.style.display = "none";
+                arrow.classList.remove("rotate");
+            } else {
+                x.style.display = "block";
+                arrow.classList.add("rotate");
+            }
+        }
+    </script>
+</body>
+  </html>
