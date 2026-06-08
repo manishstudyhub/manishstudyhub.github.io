@@ -1,1 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manish Study Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a192f;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(2, 132, 199, 0.1) 0%, transparent 50%);
+            min-height: 100vh; 
+            padding: 20px;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%230ea5e9" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            z-index: -1;
+            animation: wave 8s ease-in-out infinite;
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .container { max-width: 850px; margin: 0 auto; }
+        
+        .header {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 28px; 
+            padding: 40px 32px;
+            text-align: center; 
+            margin-bottom: 32px; 
+            box-shadow: 0 20px 60px rgba(14, 165, 233, 0.2);
+        }
+        
+        .profile-photo {
+            width: 140px; 
+            height: 140px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            object-position: center 20%;
+            border: 4px solid #0ea5e9; 
+            margin-bottom: 20px;
+            box-shadow: 0 0 0 8px rgba(14, 165, 233, 0.15), 0 10px 40px rgba(14, 165, 233, 0.3);
+        }
+        
+        .site-title { 
+            font-size: 2.6rem; 
+            font-weight: 800;
+            background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+        
+        .class-btn {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white; 
+            border: none; 
+            padding: 18px 24px;
+            border-radius: 16px; 
+            font-size: 1.15rem; 
+            font-weight: 700;
+            cursor: pointer; 
+            margin: 12px 0; 
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            letter-spacing: 0.3px;
+        }
+        .class-btn:hover { 
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(14, 165, 233, 0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+        
+        .competition-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+        .competition-btn:hover {
+            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.4);
+        }
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white; 
+            border: none; 
+            padding: 18px 24px;
+            border-radius: 16px; 
+            font-size: 1.15rem; 
+            font-weight: 700;
+            cursor: pointer; 
+            margin: 12px 0; 
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .whatsapp-btn:hover { 
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+        }
+        
+        .notes-container { 
+            display: none; 
+            margin: 16px 0 24px 0;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .subject-box {
+            background: rgba(14, 165, 233, 0.08); 
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 16px; 
+            padding: 18px; 
+            margin: 12px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .subject-box:hover {
+            background: rgba(14, 165, 233, 0.15);
+            border-color: rgba(14, 165, 233, 0.5);
+        }
+        .subject-title {
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            color: #38bdf8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .arrow { 
+            font-size: 1.2rem; 
+            transition: 0.3s;
+            color: #0ea5e9;
+        }
+        .rotate { transform: rotate(90deg); }
+        
+        .questions { 
+            display: none; 
+            margin-top: 16px; 
+            padding-top: 16px;
+            border-top: 1px solid rgba(14, 165, 233, 0.2);
+        }
+        .topic-heading {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin: 18px 0 12px 0;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+        }
+        .question-box { 
+            background: rgba(15, 23, 42, 0.6); 
+            padding: 14px; 
+            border-radius: 10px; 
+            margin: 8px 0;
+            border-left: 3px solid #0ea5e9;
+            transition: 0.2s;
+        }
+        .question-box:hover {
+            background: rgba(15, 23, 42, 0.8);
+            transform: translateX(4px);
+        }
+        .question { 
+            font-weight: 600; 
+            color: #f1f5f9; 
+            font-size: 0.95rem;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+            transition: 0.3s;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+        }
+        
+        .pdf-option-btn {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 10px 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+            transition: 0.3s;
+        }
+        .pdf-option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4);
+        }
+        
+        .imp-note {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            padding: 14px;
+            border-radius: 12px;
+            margin-top: 18px;
+            color: #fbbf24;
+            font-weight: 600;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .result-banner {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #0a192f;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 30px 0 20px 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
+        }
+        .result-banner i {
+            font-size: 1.3rem;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #64748b;
+            font-size: 0.85rem;
+            padding: 20px;
+        }
 
+        .pdf-options {
+            display: none;
+            margin-top: 12px;
+            animation: slideDown 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="1000063536.jpg" alt="Manish" class="profile-photo">
+            <h1 class="site-title">Manish Study Hub</h1>
+        </div>
+
+        <!-- 1. CLASS 12TH BUTTON -->
+        <button class="class-btn" onclick="toggleClass('class12')">
+            <i class="fa-solid fa-graduation-cap"></i> Class 12th Notes
+        </button>
+        <div id="class12" class="notes-container">
+            <!-- Physics -->
+            <div class="subject-box" onclick="toggleSubject('phy12')">
+                <div class="subject-title">
+                    Physics - 100 Important Questions <span class="arrow" id="arrow-phy12">▶</span>
+                </div>
+                <div id="phy12" class="questions">
+                    <div class="topic-heading">Board Exam Important Topics</div>
+                    <div class="question-box"><div class="question">1. State Coulomb's law.</div></div>
+                    <div class="question-box"><div class="question">2. What is electric field intensity?</div></div>
+                    <div class="question-box"><div class="question">3. State Gauss's theorem.</div></div>
+                    <div class="question-box"><div class="question">4. Define electric potential.</div></div>
+                    <div class="question-box"><div class="question">5. What is capacitance?</div></div>
+                    <div class="imp-note">🎯 Total 100 Questions | Ray Optics, Current Electricity, EMI, Modern Physics sabse important</div>
+                    <a href="#" class="download-btn">
+                        <i class="fa-solid fa-download"></i> Download Physics 100 Q PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- Chemistry -->
+            <div class="subject-box" onclick="toggleSubject('chem12')">
+                <div class="subject-title">
+                    Chemistry - 100 Important Questions <span class="arrow" id="arrow-chem12">▶</span>
+                </div>
+                <div id="chem12" class="questions">
+                    <div class="topic-heading">Board Exam Important Topics</div>
+                    <div class="question-box"><div class="question">1. Define molarity and molality.</div></div>
+                    <div class="question-box"><div class="question">2. State Raoult's law.</div></div>
+                    <div class="question-box"><div class="question">3. What is osmotic pressure?</div></div>
+                    <div class="question-box"><div class="question">4. State Faraday's laws of electrolysis.</div></div>
+                    <div class="question-box"><div class="question">5. What is rate constant?</div></div>
+                    <div class="imp-note">🎯 Total 100 Questions | Solutions, Electrochemistry, Chemical Kinetics, d & f Block important</div>
+                    <a href="#" class="download-btn">
+                        <i class="fa-solid fa-download"></i> Download Chemistry 100 Q PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- Biology -->
+            <div class="subject-box" onclick="toggleSubject('bio12')">
+                <div class="subject-title">
+                    Biology - 100 Important Questions <span class="arrow" id="arrow-bio12">▶</span>
+                </div>
+                <div id="bio12" class="questions">
+                    <div class="topic-heading">Board Exam Important Topics</div>
+                    <div class="question-box"><div class="question">1. What is double fertilization?</div></div>
+                    <div class="question-box"><div class="question">2. Define Mendel's law of dominance.</div></div>
+                    <div class="question-box"><div class="question">3. What is DNA fingerprinting?</div></div>
+                    <div class="question-box"><div class="question">4. Name the causative agent of AIDS.</div></div>
+                    <div class="question-box"><div class="question">5. What is ecosystem?</div></div>
+                    <div class="imp-note">🎯 Total 100 Questions | Reproduction, Genetics, Evolution, Biotechnology important</div>
+                    <a href="#" class="download-btn">
+                        <i class="fa-solid fa-download"></i> Download Biology 100 Q PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. CLASS 10TH BUTTON -->
+        <button class="class-btn" onclick="toggleClass('class10')">
+            <i class="fa-solid fa-book"></i> Class 10th Notes
+        </button>
+        <div id="class10" class="notes-container">
+            <!-- Vigyaan -->
+            <div class="subject-box" onclick="toggleSubject('sci10')">
+                <div class="subject-title">
+                    Vigyaan - 150 Important Questions <span class="arrow" id="arrow-sci10">▶</span>
+                </div>
+                <div id="sci10" class="questions">
+                    <div class="topic-heading">NCERT Book se Board me Aksar Puche Jane Wale Q</div>
+                    <div class="question-box"><div class="question">1. What is balanced chemical equation?</div></div>
+                    <div class="question-box"><div class="question">2. State Ohm's law.</div></div>
+                    <div class="question-box"><div class="question">3. What is photosynthesis?</div></div>
+                    <div class="question-box"><div class="question">4. Define power of a lens.</div></div>
+                    <div class="question-box"><div class="question">5. What is homologous series?</div></div>
+                    <div class="question-box"><div class="question">6. What is rusting of iron?</div></div>
+                    <div class="question-box"><div class="question">7. State Fleming's left hand rule.</div></div>
+                    <div class="question-box"><div class="question">8. What is dispersion of light?</div></div>
+                    <div class="question-box"><div class="question">9. Define atomic number.</div></div>
+                    <div class="question-box"><div class="question">10. What is reflex action?</div></div>
+                    <div class="imp-note">🎯 Total 150 Questions | Class 10 NCERT ke sabse zyada repeat hone wale board questions | Chemical Reactions, Electricity, Light, Life Processes, Heredity sabse important</div>
+                    <a href="#" class="download-btn">
+                        <i class="fa-solid fa-download"></i> Download Vigyaan 150 Q PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- Math -->
+            <div class="subject-box" onclick="toggleSubject('math10')">
+                <div class="subject-title">
+                    Math - 150 Important Questions <span class="arrow" id="arrow-math10">▶</span>
+                </div>
+                <div id="math10" class="questions">
+                    <div class="topic-heading">NCERT Book se Board me Aksar Puche Jane Wale Q</div>
+                    <div class="question-box"><div class="question">1. Find the zeroes of polynomial x² - 5x + 6.</div></div>
+                    <div class="question-box"><div class="question">2. Prove Pythagoras theorem.</div></div>
+                    <div class="question-box"><div class="question">3. Find the area of triangle with vertices.</div></div>
+                    <div class="question-box"><div class="question">4. Solve quadratic equation: x² + 7x + 12 = 0.</div></div>
+                    <div class="question-box"><div class="question">5. Find the mean of grouped data.</div></div>
+                    <div class="question-box"><div class="question">6. Find HCF using Euclid's algorithm.</div></div>
+                    <div class="question-box"><div class="question">7. Prove BPT theorem.</div></div>
+                    <div class="question-box"><div class="question">8. Find surface area of cylinder.</div></div>
+                    <div class="question-box"><div class="question">9. Find probability of an event.</div></div>
+                    <div class="question-box"><div class="question">10. Solve pair of linear equations.</div></div>
+                    <div class="imp-note">🎯 Total 150 Questions | Class 10 NCERT ke sabse zyada repeat hone wale board questions | Real Numbers, Polynomials, Trigonometry, Statistics sabse important</div>
+                    <a href="#" class="download-btn">
+                        <i class="fa-solid fa-download"></i> Download Math 150 Q PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. COMPETITION EXAM BUTTON -->
+        <button class="class-btn competition-btn" onclick="toggleClass('competition')">
+            <i class="fa-solid fa-trophy"></i> Competition Exam Most Imp Q.
+        </button>
+        <div id="competition" class="notes-container">
+            <div class="subject-box" onclick="togglePDFOptions()">
+                <div class="subject-title">
+                    GK & Reasoning <span class="arrow" id="arrow-competition">▶</span>
+                </div>
+                <div id="pdf-options-competition" class="pdf-options">
+                    <!-- GK 500 Questions -->
+                    <div class="pdf-option-btn" onclick="toggleSubject('gk500')">
+                        <i class="fa-solid fa-earth-asia"></i> GK - 500 Important Questions
+                    </div>
+                    <div id="gk500" class="questions">
+                        <div class="topic-heading">D.El.Ed + SSC + PSC Most Important</div>
+                        <div class="question-box"><div class="question">1. Bharat ka sabse lamba river kaunsa hai?</div></div>
+                        <div class="question-box"><div class="question">2. Samvidhan kab lagu hua?</div></div>
+                        <div class="question-box"><div class="question">3. Bharat Ratna kis year shuru hua?</div></div>
+                        <div class="question-box"><d
