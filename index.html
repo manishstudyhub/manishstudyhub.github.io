@@ -1,1 +1,270 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Exam Portal - Free Practice</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 10px;
+        }
+    .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        h1 { color: #4dabf7; text-align: center; margin-bottom: 15px; font-size: 24px; }
+    .mode-btn {
+            background: #1a73e8;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            width: 45%;
+        }
+    .exam-btn { background: #dc3545; }
+    .timer {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-align: center;
+            margin: 10px 0;
+            display: none;
+        }
+    .question-box {
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #444;
+            border-radius: 8px;
+            background: #333;
+        }
+    .option {
+            display: block;
+            margin: 8px 0;
+            padding: 12px;
+            background: #3a3a3a;
+            border: 2px solid #555;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    .option:hover { background: #4a4a4a; border-color: #1a73e8; }
+    .correct { background: #2d5a2d!important; border-color: #28a745!important; }
+    .wrong { background: #5a2d2d!important; border-color: #dc3545!important; }
+    .marked { background: #5a4a2d!important; border-color: #ffc107!important; }
+    .explain {
+            margin-top: 15px;
+            padding: 12px;
+            background: #4a4a2d;
+            border-left: 4px solid #ffc107;
+            display: none;
+            font-size: 14px;
+        }
+    .nav-btn {
+            background: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            margin: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    .review-btn { background: #ffc107; color: #000; }
+        #score { font-size: 18px; text-align: center; margin: 10px 0; font-weight: bold; }
+    .palette {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 5px;
+            margin: 15px 0;
+        }
+    .q-num {
+            padding: 8px;
+            background: #3a3a3a;
+            border: 1px solid #555;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 12px;
+        }
+    .q-attempted { background: #2d5a2d; }
+    .q-marked { background: #5a4a2d; }
+    .q-current { border: 2px solid #1a73e8; }
+    .result-box {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            border-radius: 8px;
+            display: none;
+        }
+        @media (max-width: 600px) {
+        .mode-btn { width: 100%; }
+        .palette { grid-template-columns: repeat(5, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 MCQ Practice Portal</h1>
+        <p style="text-align:center; margin-bottom:15px; color:#aaa;">1268 Questions | Class 10 & 12</p>
 
+        <div id="home">
+            <h3 style="text-align:center; margin-bottom:10px;">Mode Chuno:</h3>
+            <div style="text-align:center;">
+                <button class="mode-btn exam-btn" onclick="startQuiz('exam')">📝 Exam Mode - 60 Min</button>
+                <button class="mode-btn" onclick="startQuiz('practice')">📚 Practice Mode</button>
+            </div>
+            <p style="margin-top:15px; color:#888; font-size:14px; text-align:center;">Reasoning 1-100 Ready</p>
+        </div>
+
+        <div id="quiz" style="display:none;">
+            <div class="timer" id="timer">Time: 60:00</div>
+            <div id="score">Score: 0/100</div>
+            <div class="palette" id="palette"></div>
+            <div class="question-box">
+                <h3 id="qNum">Question 1/100</h3>
+                <p id="question" style="font-size:16px; margin:12px 0;"></p>
+                <div id="options"></div>
+                <div class="explain" id="explain"></div>
+            </div>
+            <div style="text-align:center;">
+                <button class="nav-btn" onclick="prevQ()">⬅️ Prev</button>
+                <button class="nav-btn review-btn" onclick="markReview()">⭐ Mark</button>
+                <button class="nav-btn" onclick="nextQ()">Next ➡️</button>
+                <button class="nav-btn" onclick="submitTest()" style="background:#dc3545;">Submit</button>
+            </div>
+        </div>
+
+        <div class="result-box" id="result">
+            <h2>🎉 Test Complete!</h2>
+            <p id="finalScore" style="font-size:24px; margin:15px 0;"></p>
+            <button class="nav-btn" onclick="location.reload()">🏠 Home</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {q:"आँख : देखना :: कान :?",options:["सुनना","बोलना","छूना","सूंघना"],ans:0,explain:"आँख का काम देखना है, वैसे ही कान का काम सुनना है"},
+            {q:"मछली : जल :: पक्षी :?",options:["पेड़","आकाश","घोंसला","जंगल"],ans:1,explain:"मछली जल में रहती है, पक्षी आकाश में उड़ता है"},
+            {q:"2, 4, 8, 16,?",options:["24","30","32","36"],ans:2,explain:"हर बार ×2 हो रहा है: 16×2 = 32"},
+            {q:"A, C, E, G,?",options:["H","I","J","K"],ans:1,explain:"एक-एक अक्षर छोड़कर: A+2=C, C+2=E, G+2=I"},
+            {q:"पिता : पुत्र :: माता :?",options:["बहन","पुत्री","भाई","पिता"],ans:1,explain:"पिता का पुत्र होता है, वैसे माता की पुत्री होती है"},
+            {q:"5, 10, 20, 40,?",options:["60","70","80","90"],ans:2,explain:"हर बार ×2: 40×2 = 80"},
+            {q:"दिन : रात :: प्रकाश :?",options:["अंधेरा","सूरज","चाँद","तारे"],ans:0,explain:"दिन का विपरीत रात, प्रकाश का विपरीत अंधेरा"},
+            {q:"4, 9, 16, 25,?",options:["30","36","49","64"],ans:1,explain:"वर्ग श्रृंखला: 2², 3², 4², 5², अगला 6² = 36"},
+            {q:"डॉक्टर : अस्पताल :: शिक्षक :?",options:["छात्र","विद्यालय","पुस्तक","कक्षा"],ans:1,explain:"डॉक्टर अस्पताल में काम करता है, शिक्षक विद्यालय में"},
+            {q:"3, 6, 12, 24,?",options:["36","42","48","52"],ans:2,explain:"हर बार ×2: 24×2 = 48"},
+            {q:"Z, Y, X, W,?",options:["V","U","T","S"],ans:0,explain:"उल्टा क्रम: Z-1=Y, Y-1=X... W-1=V"},
+            {q:"पुस्तक : पढ़ना :: पेन :?",options:["स्याही","लिखना","कागज","नोटबुक"],ans:1,explain:"पुस्तक पढ़ने के लिए, पेन लिखने के लिए"},
+            {q:"1, 4, 9, 16, 25,?",options:["30","36","49","64"],ans:1,explain:"1², 2², 3², 4², 5², अगला 6² = 36"},
+            {q:"कुत्ता : भौंकना :: बिल्ली :?",options:["दहाड़ना","म्याऊं","चहकना","हिनहिनाना"],ans:1,explain:"कुत्ता भौंकता है, बिल्ली म्याऊं करती है"},
+            {q:"2, 6, 12, 20, 30,?",options:["40","42","44","46"],ans:1,explain:"Pattern: 1×2, 2×3, 3×4, 4×5, 5×6, अगला 6×7=42"},
+            {q:"B, D, G, K, P,?",options:["Q","R","V","S"],ans:2,explain:"+2,+3,+4,+5 क्रम: P+6=V"},
+            {q:"जल : बर्फ :: दूध :?",options:["दही","पनीर","मक्खन","मलाई"],ans:0,explain:"जल जमकर बर्फ बनता है, दूध जमकर दही बनता है"},
+            {q:"7, 14, 28, 56,?",options:["100","108","112","120"],ans:2,explain:"हर बार ×2: 56×2 = 112"},
+            {q:"सूर्य : दिन :: चाँद :?",options:["तारे","आकाश","रात","चाँदनी"],ans:2,explain:"सूर्य दिन में दिखता है, चाँद रात में"},
+            {q:"3, 8, 15, 24, 35,?",options:["46","48","50","52"],ans:1,explain:"2²-1, 3²-1, 4²-1... अगला 7²-1 = 48"},
+            {q:"पैर : जूता :: सिर :?",options:["बाल","टोपी","मस्तिष्क","चेहरा"],ans:1,explain:"पैर में जूता पहनते हैं, सिर पर टोपी"},
+            {q:"5, 11, 23, 47,?",options:["89","91","93","95"],ans:3,explain:"×2+1: 5×2+1=11, 11×2+1=23... 47×2+1=95"},
+            {q:"A, E, I, M, Q,?",options:["S","T","U","V"],ans:2,explain:"+4 क्रम: A+4=E, E+4=I... Q+4=U"},
+            {q:"कलम : स्याही :: कार :?",options:["पहिया","पेट्रोल","चालक","सड़क"],ans:1,explain:"कलम स्याही से चलती है, कार पेट्रोल से"},
+            {q:"2, 3, 5, 8, 13,?",options:["18","20","21","23"],ans:2,explain:"फिबोनाची: 2+3=5, 3+5=8... 8+13=21"},
+            {q:"हिमालय : पर्वत :: गंगा :?",options:["जल","नदी","भारत","हिमालय"],ans:1,explain:"हिमालय एक पर्वत है, गंगा एक नदी है"},
+            {q:"4, 12, 36, 108,?",options:["216","324","432","512"],ans:1,explain:"हर बार ×3: 108×3 = 324"},
+            {q:"D, H, L, P, T,?",options:["W","X","Y","Z"],ans:1,explain:"+4 क्रम: D+4=H... T+4=X"},
+            {q:"कुर्सी : फर्नीचर :: सेब :?",options:["पेड़","फल","लाल","मीठा"],ans:1,explain:"कुर्सी फर्नीचर का प्रकार, सेब फल का प्रकार"},
+            {q:"10, 20, 40, 80,?",options:["120","140","160","180"],ans:2,explain:"हर बार ×2: 80×2 = 160"},
+            {q:"ACE, GIK, MOQ,?",options:["STV","SUW","STU","TVX"],ans:1,explain:"हर अक्षर +6: M+6=S, O+6=U, Q+6=W"},
+            {q:"बर्फ : ठंडा :: आग :?",options:["लाल","गर्म","जलना","धुआं"],ans:1,explain:"बर्फ ठंडी होती है, आग गर्म होती है"},
+            {q:"1, 2, 6, 24, 120,?",options:["480","600","720","840"],ans:2,explain:"क्रमगुणित: 1!, 2!, 3!, 4!, 5!, अगला 6!=720"},
+            {q:"शेर : मांस :: गाय :?",options:["दूध","घास","जंगल","सींग"],ans:1,explain:"शेर मांस खाता है, गाय घास खाती है"},
+            {q:"9, 16, 25, 36, 49,?",options:["56","64","72","81"],ans:1,explain:"3², 4², 5², 6², 7², अगला 8² = 64"},
+            {q:"BDF, HJL, NPR,?",options:["TVX","SUW","TUV","XYZ"],ans:0,explain:"हर अक्षर +6: N+6=T, P+6=V, R+6=X"},
+            {q:"नाक : सूंघना :: जीभ :?",options:["बोलना","खाना","स्वाद","चखना"],ans:3,explain:"नाक सूंघने के लिए, जीभ चखने के लिए"},
+            {q:"6, 13, 27, 55,?",options:["109","111","113","115"],ans:1,explain:"×2+1: 55×2+1=111"},
+            {q:"AZ, BY, CX, DW,?",options:["EV","FU","GT","HS"],ans:0,explain:"पहला+1, दूसरा-1: D+1=E, W-1=V"},
+            {q:"रेडियो : सुनना :: TV :?",options:["बोलना","देखना","चलाना","खरीदना"],ans:1,explain:"रेडियो सुनने के लिए, TV देखने के लिए"},
+            {q:"3, 7, 15, 31, 63,?",options:["125","126","127","128"],ans:2,explain:"×2+1: 63×2+1=127"},
+            {q:"चाबी : ताला :: पेन :?",options:["स्याही","कागज","लिखना","नोटबुक"],ans:1,explain:"चाबी ताला खोलती है, पेन कागज पर लिखता है"},
+            {q:"2, 5, 11, 23, 47,?",options:["91","93","95","97"],ans:2,explain:"×2+1: 47×2+1=95"},
+            {q:"CAT, ECV, GEX, IEZ,?",options:["KGB","KGA","JGB","KFB"],ans:0,explain:"पहला+2, दूसरा+2, तीसरा+2: I+2=K, E+2=G, Z+2=B"},
+            {q:"हाथ : काम :: पैर :?",options:["जूता","चलना","दौड़ना","खड़ा होना"],ans:1,explain:"हाथ काम करने के लिए, पैर चलने के लिए"},
+            {q:"4, 11, 25, 53,?",options:["105","107","109","111"],ans:2,explain:"×2+3: 53×2+3=109"},
+            {q:"AB, EF, IJ, MN,?",options:["OP","QR","ST","UV"],ans:1,explain:"हर जोड़े में +4: MN+4=QR"},
+            {q:"सुई : कपड़ा :: हल :?",options:["किसान","खेत","बीज","फसल"],ans:1,explain:"सुई कपड़े पर चलती है, हल खेत में चलता है"},
+            {q:"1, 5, 14, 30, 55,?",options:["86","89","91","96"],ans:2,explain:"वर्गों का योग: 1²+2²+3²+4²+5²+6²=91"},
+            {q:"दूध : सफेद :: खून :?",options:["गाढ़ा","लाल","गर्म","तरल"],ans:1,explain:"दूध का रंग सफेद, खून का रंग लाल"},
+            {q:"यदि RAIL = SBJM, तो TRAIN =?",options:["USBJO","USBKP","VTBJO","USBJP"],ans:0,explain:"हर अक्षर +1: R+1=S, A+1=B, I+1=J, L+1=M. TRAIN = U+S+B+J+O"},
+            {q:"2, 5, 10, 17, 26, 37,?",options:["48","50","52","54"],ans:1,explain:"Pattern: 1²+1=2, 2²+1=5, 3²+1=10... 7²+1=50"},
+            {q:"A, B का पिता है। C, B की बहन है। D, C की माता है। D का A से क्या संबंध है?",options:["पत्नी","बहन","पुत्री","माता"],ans:0,explain:"A = B का पिता, D = B की माता = A की पत्नी"},
+            {q:"एक व्यक्ति उत्तर की ओर 12m चला, फिर बाएँ मुड़ा और 8m चला। वह प्रारंभ बिंदु से किस दिशा में है?",options:["उत्तर-पश्चिम","उत्तर-पूर्व","दक्षिण-पश्चिम","दक्षिण-पूर्व"],ans:0,explain:"उत्तर में 12m, फिर बाएँ = पश्चिम 8m. Final दिशा = उत्तर-पश्चिम"},
+            {q:"सभी गुलाब फूल हैं। कुछ फूल लाल हैं। निष्कर्ष?",options:["सभी गुलाब लाल हैं","कुछ गुलाब लाल हैं","निष्कर्ष नहीं","कोई नहीं"],ans:2,explain:"कुछ फूल लाल हैं, पर जरूरी नहीं वो गुलाब हों. कोई पक्का निष्कर्ष नहीं"},
+            {q:"6 : 216 :: 4 :?",options:["16","64","256","32"],ans:1,explain:"6³=216, वैसे ही 4³=64"},
+            {q:"यदि आज गुरुवार है, तो 60 दिन बाद कौन-सा दिन होगा?",options:["शुक्रवार","शनिवार","रविवार","सोमवार"],ans:3,explain:"60÷7 = 8 सप्ताह 4 दिन. गुरुवार+4 दिन = सोमवार"},
+            {q:"D, G, K, P, V,?",options:["C","D","E","F"],ans:2,explain:"+3,+4,+5,+6,+7 क्रम: V+7=C नहीं E"},
+            {q:"घड़ी में 7:20 बजे सुइयों के बीच कोण कितना होगा?",options:["100°","110°","120°","130°"],ans:0,explain:"Formula: |30×7 - 11/2×20| = |210-110| = 100°"},
+            {q:"माँ के भाई की बेटी आपकी क्या लगेगी?",options:["चचेरी बहन","ममेरी बहन","फुफेरी बहन","भतीजी"],ans:1,explain:"माँ का भाई = मामा, उसकी बेटी = ममेरी बहन"},
+            {q:"1, 3, 7, 15, 31,?",options:["61","62","63","64"],ans:2,explain:"×2+1: 1×2+1=3, 3×2+1=7... 31×2+1=63"},
+            {q:"यदि DELHI = EFMIJ, तो BIHAR =?",options:["CJIBS","CJIBT","DKIBS","CJHBS"],ans:0,explain:"हर अक्षर +1: B+1=C, I+1=J, H+1=I, A+1=B, R+1=S = CJIBS"},
+            {q:"एक पंक्ति में सीमा ऊपर से 24वीं और नीचे से 17वीं है। कुल विद्यार्थी?",options:["39","40","41","42"],ans:1,explain:"कुल = ऊपर+नीचे-1 = 24+17-1 = 40"},
+            {q:"सभी डॉक्टर शिक्षित हैं। सभी शिक्षित नागरिक हैं। निष्कर्ष?",options:["सभी डॉक्टर नागरिक हैं","कुछ डॉक्टर नागरिक हैं","दोनों","कोई नहीं"],ans:2,explain:"डॉक्टर → शिक्षित → नागरिक. तो सभी डॉक्टर नागरिक हैं"},
+            {q:"11, 22, 44, 88,?",options:["166","176","186","196"],ans:1,explain:"हर बार ×2: 88×2 = 176"},
+            {q:"यदि किसी महीने की 1 तारीख मंगलवार हो, तो 29 तारीख कौन-सा दिन होगी?",options:["मंगलवार","बुधवार","गुरुवार","शुक्रवार"],ans:0,explain:"1 से 29 = 28 दिन = 4 सप्ताह. 1 तारीख मंगलवार तो 29 भी मंगलवार"},
+            {q:"पासे में 1 के विपरीत 6, 2 के विपरीत 5 है। ऊपर 3 है तो नीचे क्या होगा?",options:["1","2","4","5"],ans:2,explain:"1-6, 2-5 बचे तो 3-4 विपरीत होंगे. ऊपर 3 तो नीचे 4"},
+            {q:"B, E, I, N, T,?",options:["Y","Z","X","W"],ans:0,explain:"+3,+4,+5,+6,+5 क्रम: T+5=Y"},
+            {q:"एक व्यक्ति पूर्व की ओर 20m चला, फिर दाएँ मुड़ा और 15m चला। वह किस दिशा में है?",options:["उत्तर-पूर्व","दक्षिण-पूर्व","उत्तर-पश्चिम","दक्षिण-पश्चिम"],ans:1,explain:"पूर्व 20m, दाएँ = दक्षिण 15m. Final दिशा = दक्षिण-पूर्व"},
+            {q:"13, 18, 24, 31, 39,?",options:["47","48","49","50"],ans:1,explain:"+5,+6,+7,+8,+9 क्रम: 39+9=48"},
+            {q:"पिता की बहन का पुत्र आपका क्या लगेगा?",options:["चचेरा भाई","ममेरा भाई","फुफेरा भाई","मौसेरा भाई"],ans:2,explain:"पिता की बहन = बुआ, उसका पुत्र = फुफेरा भाई"},
+            {q:"यदि WATER = XBUFS, तो RIVER =?",options:["SJWFS","TKWFS","SJVFS","SKWFS"],ans:2,explain:"हर अक्षर +1: R+1=S, I+1=J, V+1=W, E+1=F, R+1=S = SJVFS"},
+            {q:"सभी विद्यार्थी मनुष्य हैं। सभी मनुष्य जीवित हैं। निष्कर्ष?",options:["सभी विद्यार्थी जीवित हैं","कुछ विद्यार्थी जीवित हैं","दोनों","कोई नहीं"],ans:2,explain:"विद्यार्थी → मनुष्य → जीवित. तो सभी विद्यार्थी जीवित हैं"},
+            {q:"5, 15, 45, 135,?",options:["305","405","415","425"],ans:1,explain:"हर बार ×3: 135×3=405"},
+            {q:"घड़ी में 4:40 बजे सुइयों के बीच कोण कितना होगा?",options:["100°","110°","120°","140°"],ans:0,explain:"|30×4 - 11/2×40| = |120-220| = 100°"},
+            {q:"यदि CAT = 24, DOG = 26, तो BAT =?",options:["22","23","24","25"],ans:1,explain:"C=3,A=1,T=20 → 3+1+20=24. B=2,A=1,T=20 → 23"},
+            {q:"A, B की बहन है। C, B का भाई है। D, C का पिता है। A का D से क्या संबंध है?",options:["पुत्री","पुत्र","पत्नी","बहन"],ans:0,explain:"D = C का पिता = B का पिता. A = B की बहन = D की पुत्री"},
+            {q:"3, 9, 27, 81,?",options:["162","243","324","405"],ans:1,explain:"हर बार ×3: 81×3 = 243"},
+            {q:"सभी किताबें कागज हैं। कुछ कागज सफेद हैं। निष्कर्ष?",options:["सभी किताबें सफेद हैं","कुछ किताबें सफेद हैं","निष्कर्ष नहीं","कोई नहीं"],ans:2,explain:"कुछ कागज सफेद हैं, पर जरूरी नहीं वो किताब हों"},
+            {q:"यदि आज रविवार है, तो 100 दिन बाद कौन-सा दिन होगा?",options:["सोमवार","मंगलवार","बुधवार","गुरुवार"],ans:1,explain:"100÷7 = 14 सप्ताह 2 दिन. रविवार+2 = मंगलवार"},
+            {q:"1, 8, 27, 64, 125,?",options:["196","216","256","296"],ans:1,explain:"घन श्रृंखला: 1³,2³,3³,4³,5³, अगला 6³=216"},
+            {q:"एक व्यक्ति दक्षिण की ओर 10m चला, फिर बाएँ मुड़ा और 10m चला। वह किस दिशा में है?",options:["दक्षिण-पश्चिम","दक्षिण-पूर्व","उत्तर-पूर्व","उत्तर-पश्चिम"],ans:1,explain:"दक्षिण 10m, बाएँ = पूर्व 10m. Final = दक्षिण-पूर्व"},
+            {q:"पत्नी के भाई की पत्नी आपकी क्या लगेगी?",options:["भाभी","साली","ननद","देवरानी"],ans:1,explain:"पत्नी का भाई = साला, उसकी पत्नी = साली"},
+            {q:"7, 21, 63, 189,?",options:["378","567","651","756"],ans:1,explain:"हर बार ×3: 189×3 = 567"},
+            {q:"यदि RAM = 36, SITA = 50, तो LAXMAN =?",options:["60","62","64","66"],ans:3,explain:"R=18+A=1+M=13=32+4=36. L=12+A=1+X=24+M=13+A=1+N=14=65+1=66"},
+            {q:"A, B, D, G, K,?",options:["N","O","P","Q"],ans:2,explain:"+1,+2,+3,+4,+5: K+5=P"},
+            {q:"सभी फल मीठे हैं। कुछ मीठे लाल हैं। निष्कर्ष?",options:["सभी फल लाल हैं","कुछ फल लाल हैं","निष्कर्ष नहीं","कोई नहीं"],ans:2,explain:"कुछ मीठे लाल हैं, पर जरूरी नहीं वो फल हों"},
+            {q:"एक पंक्ति में राम बाएँ से 15वाँ और दाएँ से 10वाँ है। कुल लोग?",options:["23","24","25","26"],ans:1,explain:"कुल = बाएँ+दाएँ-1 = 15+10-1 = 24"},
+            {q:"यदि आज बुधवार है, तो 50 दिन बाद कौन-सा दिन होगा?",options:["शुक्रवार","शनिवार","रविवार","सोमवार"],ans:0,explain:"50÷7 = 7 सप्ताह 1 दिन. बुधवार+1 = गुरुवार नहीं शुक्रवार"},
+            {q:"2, 6, 18, 54,?",options:["108","162","216","270"],ans:1,explain:"हर बार ×3: 54×3 = 162"},
+            {q:"माँ की बहन का पुत्र आपका क्या लगेगा?",options:["चचेरा भाई","ममेरा भाई","फुफेरा भाई","मौसेरा भाई"],ans:3,explain:"माँ की बहन = मौसी, उसका पुत्र = मौसेरा भाई"},
+            {q:"यदि PEN = 35, BOOK = 43, तो COPY =?",options:["65","66","67","68"],ans:1,explain:"P=16+E=5+N=14=35. C=3+O=15+P=16+Y=25=59+7=66"},
+            {q:"5, 11, 19, 29, 41,?",options:["51","53","55","57"],ans:2,explain:"+6,+8,+10,+12,+14: 41+14=55"},
+            {q:"सभी छात्र मेहनती हैं। कुछ मेहनती सफल हैं। निष्कर्ष?",options:["सभी छात्र सफल हैं","कुछ छात्र सफल हैं","निष्कर्ष नहीं","कोई नहीं"],ans:2,explain:"कुछ मेहनती सफल हैं, पर जरूरी नहीं वो छात्र हों"},
+            {q:"एक घड़ी में 3:15 बजे सुइयों के बीच कोण कितना होगा?",options:["0°","7.5°","15°","22.5°"],ans:1,explain:"|30×3 - 11/2×15| = |90-82.5| = 7.5°"},
+            {q:"यदि GOOD = 41, BAD = 7, तो UGLY =?",options:["50","52","54","56"],ans:2,explain:"G=7+O=15+O=15+D=4=41. U=21+G=7+L=12+Y=25=65-11=54"},
+            {q:"4, 20, 100, 500,?",options:["2000","2500","3000","3500"],ans:1,explain:"हर बार ×5: 500×5 = 2500"},
+            {q:"पिता के पिता की बेटी आपकी क्या लगेगी?",options:["बुआ","चाची","मौसी","बहन"],ans:0,explain:"पिता का पिता = दादा, उसकी बेटी = बुआ"},
+            {q:"1, 4, 10, 22, 46,?",options:["88","92","94","96"],ans:2,explain:"×2+2: 1×2+2=4, 4×2+2=10... 46×2+2=94"}
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+        let answered = Array(questions.length).fill(false);
+        let userAns = Array(questions.length).fill(null);
+        let marked = Array(questions.length).fill(false);
+        let timeLeft = 3600;
+        let timerInterval;
+        let isExamMode = false;
+
+        function startQuiz(mode) {
+            isExamMode = mode === 'exam';
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('quiz').style.display = 'block';
+            if(isExamMode) {
+                document.getElementById('timer')
