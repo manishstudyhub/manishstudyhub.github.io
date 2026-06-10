@@ -12,7 +12,7 @@
             color: #fff;
             padding: 10px;
         }
-       .container {
+      .container {
             max-width: 900px;
             margin: 0 auto;
             background: #2d2d2d;
@@ -21,7 +21,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         h1 { color: #4dabf7; text-align: center; margin-bottom: 15px; font-size: 24px; }
-       .mode-btn {
+      .mode-btn {
             background: #1a73e8;
             color: white;
             padding: 12px 20px;
@@ -32,10 +32,10 @@
             font-size: 15px;
             width: 45%;
         }
-       .mode-btn:hover { background: #1557b0; }
-       .exam-btn { background: #dc3545; }
-       .exam-btn:hover { background: #b02a37; }
-       .timer {
+      .mode-btn:hover { background: #1557b0; }
+      .exam-btn { background: #dc3545; }
+      .exam-btn:hover { background: #b02a37; }
+      .timer {
             font-size: 20px;
             font-weight: bold;
             color: #ff6b6b;
@@ -43,14 +43,14 @@
             margin: 10px 0;
             display: none;
         }
-       .question-box {
+      .question-box {
             margin: 15px 0;
             padding: 15px;
             border: 2px solid #444;
             border-radius: 8px;
             background: #333;
         }
-       .option {
+      .option {
             display: block;
             margin: 8px 0;
             padding: 12px;
@@ -59,11 +59,11 @@
             border-radius: 5px;
             cursor: pointer;
         }
-       .option:hover { background: #4a4a4a; border-color: #1a73e8; }
-       .correct { background: #2d5a2d!important; border-color: #28a745!important; }
-       .wrong { background: #5a2d2d!important; border-color: #dc3545!important; }
-       .marked { background: #5a4a2d!important; border-color: #ffc107!important; }
-       .explain {
+      .option:hover { background: #4a4a4a; border-color: #1a73e8; }
+      .correct { background: #2d5a2d!important; border-color: #28a745!important; }
+      .wrong { background: #5a2d2d!important; border-color: #dc3545!important; }
+      .marked { background: #5a4a2d!important; border-color: #ffc107!important; }
+      .explain {
             margin-top: 15px;
             padding: 12px;
             background: #4a4a2d;
@@ -71,7 +71,7 @@
             display: none;
             font-size: 14px;
         }
-       .nav-btn {
+      .nav-btn {
             background: #28a745;
             color: white;
             padding: 10px 15px;
@@ -81,15 +81,15 @@
             cursor: pointer;
             font-size: 14px;
         }
-       .review-btn { background: #ffc107; color: #000; }
+      .review-btn { background: #ffc107; color: #000; }
         #score { font-size: 18px; text-align: center; margin: 10px 0; font-weight: bold; }
-       .palette {
+      .palette {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             gap: 5px;
             margin: 15px 0;
         }
-       .q-num {
+      .q-num {
             padding: 8px;
             background: #3a3a3a;
             border: 1px solid #555;
@@ -98,12 +98,12 @@
             text-align: center;
             font-size: 12px;
         }
-       .q-attempted { background: #2d5a2d; }
-       .q-marked { background: #5a4a2d; }
-       .q-current { border: 2px solid #1a73e8; }
+      .q-attempted { background: #2d5a2d; }
+      .q-marked { background: #5a4a2d; }
+      .q-current { border: 2px solid #1a73e8; }
         @media (max-width: 600px) {
-           .mode-btn { width: 100%; }
-           .palette { grid-template-columns: repeat(5, 1fr); }
+          .mode-btn { width: 100%; }
+          .palette { grid-template-columns: repeat(5, 1fr); }
         }
     </style>
 </head>
@@ -145,7 +145,6 @@
 
     <script>
         const questions = [
-            // REASONING 1-50
             {q:"आँख : देखना :: कान :?",options:["सुनना","बोलना","छूना","सूंघना"],ans:0,explain:"आँख का काम देखना है, वैसे ही कान का काम सुनना है"},
             {q:"मछली : जल :: पक्षी :?",options:["पेड़","आकाश","घोंसला","जंगल"],ans:1,explain:"मछली जल में रहती है, पक्षी आकाश में उड़ता है"},
             {q:"2, 4, 8, 16,?",options:["24","30","32","36"],ans:2,explain:"हर बार ×2 हो रहा है: 16×2 = 32"},
@@ -196,7 +195,6 @@
             {q:"सुई : कपड़ा :: हल :?",options:["किसान","खेत","बीज","फसल"],ans:1,explain:"सुई कपड़े पर चलती है, हल खेत में चलता है"},
             {q:"1, 5, 14, 30, 55,?",options:["86","89","91","96"],ans:2,explain:"वर्गों का योग: 1²+2²+3²+4²+5²+6²=91"},
             {q:"दूध : सफेद :: खून :?",options:["गाढ़ा","लाल","गर्म","तरल"],ans:1,explain:"दूध का रंग सफेद, खून का रंग लाल"},
-            // REASONING 51-100 = TERE Q276-Q325
             {q:"यदि RAIL = SBJM, तो TRAIN =?",options:["USBJO","USBKP","VTBJO","USBJP"],ans:0,explain:"हर अक्षर +1: R+1=S, A+1=B, I+1=J, L+1=M. TRAIN = U+S+B+J+O"},
             {q:"2, 5, 10, 17, 26, 37,?",options:["48","50","52","54"],ans:1,explain:"Pattern: 1²+1=2, 2²+1=5, 3²+1=10... 7²+1=50"},
             {q:"A, B का पिता है। C, B की बहन है। D, C की माता है। D का A से क्या संबंध है?",options:["पत्नी","बहन","पुत्री","माता"],ans:0,explain:"A = B का पिता, D = B की माता = A की पत्नी"},
@@ -266,4 +264,9 @@
                 startTimer();
             }
             createPalette();
-            showQu
+            showQuestion();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+        
