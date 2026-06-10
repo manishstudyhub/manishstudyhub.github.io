@@ -12,16 +12,15 @@
             color: #fff;
             padding: 10px;
         }
-     .container {
+    .container {
             max-width: 900px;
             margin: 0 auto;
             background: #2d2d2d;
             padding: 15px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         h1 { color: #4dabf7; text-align: center; margin-bottom: 15px; font-size: 24px; }
-     .mode-btn {
+    .mode-btn {
             background: #1a73e8;
             color: white;
             padding: 12px 20px;
@@ -32,10 +31,8 @@
             font-size: 15px;
             width: 45%;
         }
-     .mode-btn:hover { background: #1557b0; }
-     .exam-btn { background: #dc3545; }
-     .exam-btn:hover { background: #b02a37; }
-     .timer {
+    .exam-btn { background: #dc3545; }
+    .timer {
             font-size: 20px;
             font-weight: bold;
             color: #ff6b6b;
@@ -43,14 +40,14 @@
             margin: 10px 0;
             display: none;
         }
-     .question-box {
+    .question-box {
             margin: 15px 0;
             padding: 15px;
             border: 2px solid #444;
             border-radius: 8px;
             background: #333;
         }
-     .option {
+    .option {
             display: block;
             margin: 8px 0;
             padding: 12px;
@@ -59,11 +56,11 @@
             border-radius: 5px;
             cursor: pointer;
         }
-     .option:hover { background: #4a4a4a; border-color: #1a73e8; }
-     .correct { background: #2d5a2d!important; border-color: #28a745!important; }
-     .wrong { background: #5a2d2d!important; border-color: #dc3545!important; }
-     .marked { background: #5a4a2d!important; border-color: #ffc107!important; }
-     .explain {
+    .option:hover { background: #4a4a4a; border-color: #1a73e8; }
+    .correct { background: #2d5a2d!important; border-color: #28a745!important; }
+    .wrong { background: #5a2d2d!important; border-color: #dc3545!important; }
+    .marked { background: #5a4a2d!important; border-color: #ffc107!important; }
+    .explain {
             margin-top: 15px;
             padding: 12px;
             background: #4a4a2d;
@@ -71,7 +68,7 @@
             display: none;
             font-size: 14px;
         }
-     .nav-btn {
+    .nav-btn {
             background: #28a745;
             color: white;
             padding: 10px 15px;
@@ -81,15 +78,15 @@
             cursor: pointer;
             font-size: 14px;
         }
-     .review-btn { background: #ffc107; color: #000; }
+    .review-btn { background: #ffc107; color: #000; }
         #score { font-size: 18px; text-align: center; margin: 10px 0; font-weight: bold; }
-     .palette {
+    .palette {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             gap: 5px;
             margin: 15px 0;
         }
-     .q-num {
+    .q-num {
             padding: 8px;
             background: #3a3a3a;
             border: 1px solid #555;
@@ -98,10 +95,10 @@
             text-align: center;
             font-size: 12px;
         }
-     .q-attempted { background: #2d5a2d; }
-     .q-marked { background: #5a4a2d; }
-     .q-current { border: 2px solid #1a73e8; }
-     .result-box {
+    .q-attempted { background: #2d5a2d; }
+    .q-marked { background: #5a4a2d; }
+    .q-current { border: 2px solid #1a73e8; }
+    .result-box {
             text-align: center;
             padding: 20px;
             background: #333;
@@ -109,8 +106,8 @@
             display: none;
         }
         @media (max-width: 600px) {
-         .mode-btn { width: 100%; }
-         .palette { grid-template-columns: repeat(5, 1fr); }
+        .mode-btn { width: 100%; }
+        .palette { grid-template-columns: repeat(5, 1fr); }
         }
     </style>
 </head>
@@ -125,7 +122,7 @@
                 <button class="mode-btn exam-btn" onclick="startQuiz('exam')">📝 Exam Mode - 60 Min</button>
                 <button class="mode-btn" onclick="startQuiz('practice')">📚 Practice Mode</button>
             </div>
-            <p style="margin-top:15px; color:#888; font-size:14px; text-align:center;">Reasoning 1-100 Ready | Baaki Q jald add honge</p>
+            <p style="margin-top:15px; color:#888; font-size:14px; text-align:center;">Reasoning 1-100 Ready</p>
         </div>
 
         <div id="quiz" style="display:none;">
@@ -267,4 +264,7 @@
 
         function startQuiz(mode) {
             isExamMode = mode === 'exam';
-            document.get
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('quiz').style.display = 'block';
+            if(isExamMode) {
+                document.getElementById('timer')
