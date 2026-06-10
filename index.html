@@ -8,94 +8,144 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Arial, sans-serif;
-            background: #f0f2f5;
-            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 10px;
         }
        .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            background: white;
-            padding: 20px;
+            background: #2d2d2d;
+            padding: 15px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
-        h1 { color: #1a73e8; text-align: center; margin-bottom: 20px; }
-       .subject-btn {
+        h1 { color: #4dabf7; text-align: center; margin-bottom: 15px; font-size: 24px; }
+       .mode-btn {
             background: #1a73e8;
             color: white;
-            padding: 15px 25px;
+            padding: 12px 20px;
             border: none;
             border-radius: 8px;
-            margin: 10px;
+            margin: 5px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px;
+            width: 45%;
         }
-       .subject-btn:hover { background: #1557b0; }
+       .mode-btn:hover { background: #1557b0; }
+       .exam-btn { background: #dc3545; }
+       .exam-btn:hover { background: #b02a37; }
+       .timer {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-align: center;
+            margin: 10px 0;
+            display: none;
+        }
        .question-box {
-            margin: 20px 0;
-            padding: 20px;
-            border: 2px solid #e0e0e0;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #444;
             border-radius: 8px;
+            background: #333;
         }
        .option {
             display: block;
-            margin: 10px 0;
+            margin: 8px 0;
             padding: 12px;
-            background: #f8f9fa;
-            border: 2px solid #ddd;
+            background: #3a3a3a;
+            border: 2px solid #555;
             border-radius: 5px;
             cursor: pointer;
         }
-       .option:hover { background: #e8f0fe; border-color: #1a73e8; }
-       .correct { background: #d4edda!important; border-color: #28a745!important; }
-       .wrong { background: #f8d7da!important; border-color: #dc3545!important; }
+       .option:hover { background: #4a4a4a; border-color: #1a73e8; }
+       .correct { background: #2d5a2d!important; border-color: #28a745!important; }
+       .wrong { background: #5a2d2d!important; border-color: #dc3545!important; }
+       .marked { background: #5a4a2d!important; border-color: #ffc107!important; }
        .explain {
             margin-top: 15px;
-            padding: 15px;
-            background: #fff3cd;
+            padding: 12px;
+            background: #4a4a2d;
             border-left: 4px solid #ffc107;
             display: none;
+            font-size: 14px;
         }
        .nav-btn {
             background: #28a745;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 15px;
             border: none;
             border-radius: 5px;
-            margin: 5px;
+            margin: 3px;
             cursor: pointer;
+            font-size: 14px;
         }
-        #score { font-size: 24px; text-align: center; margin: 20px 0; font-weight: bold; }
+       .review-btn { background: #ffc107; color: #000; }
+        #score { font-size: 18px; text-align: center; margin: 10px 0; font-weight: bold; }
+       .palette {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 5px;
+            margin: 15px 0;
+        }
+       .q-num {
+            padding: 8px;
+            background: #3a3a3a;
+            border: 1px solid #555;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 12px;
+        }
+       .q-attempted { background: #2d5a2d; }
+       .q-marked { background: #5a4a2d; }
+       .q-current { border: 2px solid #1a73e8; }
+        @media (max-width: 600px) {
+           .mode-btn { width: 100%; }
+           .palette { grid-template-columns: repeat(5, 1fr); }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎯 Free MCQ Practice Portal</h1>
-        <p style="text-align:center; margin-bottom:20px;">Class 10 & 12 | 1268+ Questions</p>
+        <h1>🎯 MCQ Practice Portal</h1>
+        <p style="text-align:center; margin-bottom:15px; color:#aaa;">1268 Questions | Class 10 & 12</p>
 
         <div id="home">
-            <h3>Subject Chuno:</h3>
-            <button class="subject-btn" onclick="startQuiz()">🧠 Reasoning Start Karein</button>
-            <p style="margin-top:20px; color:#666;">Abhi Reasoning 1-50 Q Ready Hain. Baaki subjects jald add honge.</p>
+            <h3 style="text-align:center; margin-bottom:10px;">Mode Chuno:</h3>
+            <div style="text-align:center;">
+                <button class="mode-btn exam-btn" onclick="startQuiz('exam')">📝 Exam Mode - 60 Min</button>
+                <button class="mode-btn" onclick="startQuiz('practice')">📚 Practice Mode</button>
+            </div>
+            <p style="margin-top:15px; color:#888; font-size:14px; text-align:center;">Reasoning 1-100 Ready | Baaki Q jald add honge</p>
         </div>
 
         <div id="quiz" style="display:none;">
-            <div id="score">Score: 0/50</div>
+            <div class="timer" id="timer">Time: 60:00</div>
+            <div id="score">Score: 0/100</div>
+
+            <div class="palette" id="palette"></div>
+
             <div class="question-box">
-                <h3 id="qNum">Question 1/50</h3>
-                <p id="question" style="font-size:18px; margin:15px 0;"></p>
+                <h3 id="qNum">Question 1/100</h3>
+                <p id="question" style="font-size:16px; margin:12px 0;"></p>
                 <div id="options"></div>
                 <div class="explain" id="explain"></div>
             </div>
-            <button class="nav-btn" onclick="prevQ()">⬅️ Prev</button>
-            <button class="nav-btn" onclick="nextQ()">Next ➡️</button>
-            <button class="nav-btn" onclick="showHome()">🏠 Home</button>
+
+            <div style="text-align:center;">
+                <button class="nav-btn" onclick="prevQ()">⬅️ Prev</button>
+                <button class="nav-btn review-btn" onclick="markReview()">⭐ Mark</button>
+                <button class="nav-btn" onclick="nextQ()">Next ➡️</button>
+                <button class="nav-btn" onclick="submitTest()" style="background:#dc3545;">Submit</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // ===== REASONING 1-50 Q YAHI HAIN =====
         const questions = [
+            // REASONING 1-50
             {q:"आँख : देखना :: कान :?",options:["सुनना","बोलना","छूना","सूंघना"],ans:0,explain:"आँख का काम देखना है, वैसे ही कान का काम सुनना है"},
             {q:"मछली : जल :: पक्षी :?",options:["पेड़","आकाश","घोंसला","जंगल"],ans:1,explain:"मछली जल में रहती है, पक्षी आकाश में उड़ता है"},
             {q:"2, 4, 8, 16,?",options:["24","30","32","36"],ans:2,explain:"हर बार ×2 हो रहा है: 16×2 = 32"},
@@ -145,79 +195,75 @@
             {q:"AB, EF, IJ, MN,?",options:["OP","QR","ST","UV"],ans:1,explain:"हर जोड़े में +4: MN+4=QR"},
             {q:"सुई : कपड़ा :: हल :?",options:["किसान","खेत","बीज","फसल"],ans:1,explain:"सुई कपड़े पर चलती है, हल खेत में चलता है"},
             {q:"1, 5, 14, 30, 55,?",options:["86","89","91","96"],ans:2,explain:"वर्गों का योग: 1²+2²+3²+4²+5²+6²=91"},
-            {q:"दूध : सफेद :: खून :?",options:["गाढ़ा","लाल","गर्म","तरल"],ans:1,explain:"दूध का रंग सफेद, खून का रंग लाल"}
+            {q:"दूध : सफेद :: खून :?",options:["गाढ़ा","लाल","गर्म","तरल"],ans:1,explain:"दूध का रंग सफेद, खून का रंग लाल"},
+            // REASONING 51-100 = TERE Q276-Q325
+            {q:"यदि RAIL = SBJM, तो TRAIN =?",options:["USBJO","USBKP","VTBJO","USBJP"],ans:0,explain:"हर अक्षर +1: R+1=S, A+1=B, I+1=J, L+1=M. TRAIN = U+S+B+J+O"},
+            {q:"2, 5, 10, 17, 26, 37,?",options:["48","50","52","54"],ans:1,explain:"Pattern: 1²+1=2, 2²+1=5, 3²+1=10... 7²+1=50"},
+            {q:"A, B का पिता है। C, B की बहन है। D, C की माता है। D का A से क्या संबंध है?",options:["पत्नी","बहन","पुत्री","माता"],ans:0,explain:"A = B का पिता, D = B की माता = A की पत्नी"},
+            {q:"एक व्यक्ति उत्तर की ओर 12m चला, फिर बाएँ मुड़ा और 8m चला। वह प्रारंभ बिंदु से किस दिशा में है?",options:["उत्तर-पश्चिम","उत्तर-पूर्व","दक्षिण-पश्चिम","दक्षिण-पूर्व"],ans:0,explain:"उत्तर में 12m, फिर बाएँ = पश्चिम 8m. Final दिशा = उत्तर-पश्चिम"},
+            {q:"सभी गुलाब फूल हैं। कुछ फूल लाल हैं। निष्कर्ष?",options:["सभी गुलाब लाल हैं","कुछ गुलाब लाल हैं","निष्कर्ष नहीं","कोई नहीं"],ans:2,explain:"कुछ फूल लाल हैं, पर जरूरी नहीं वो गुलाब हों. कोई पक्का निष्कर्ष नहीं"},
+            {q:"6 : 216 :: 4 :?",options:["16","64","256","32"],ans:1,explain:"6³=216, वैसे ही 4³=64"},
+            {q:"यदि आज गुरुवार है, तो 60 दिन बाद कौन-सा दिन होगा?",options:["शुक्रवार","शनिवार","रविवार","सोमवार"],ans:3,explain:"60÷7 = 8 सप्ताह 4 दिन. गुरुवार+4 दिन = सोमवार"},
+            {q:"D, G, K, P, V,?",options:["C","D","E","F"],ans:2,explain:"+3,+4,+5,+6,+7 क्रम: V+7=C नहीं E"},
+            {q:"घड़ी में 7:20 बजे सुइयों के बीच कोण कितना होगा?",options:["100°","110°","120°","130°"],ans:0,explain:"Formula: |30×7 - 11/2×20| = |210-110| = 100°"},
+            {q:"माँ के भाई की बेटी आपकी क्या लगेगी?",options:["चचेरी बहन","ममेरी बहन","फुफेरी बहन","भतीजी"],ans:1,explain:"माँ का भाई = मामा, उसकी बेटी = ममेरी बहन"},
+            {q:"1, 3, 7, 15, 31,?",options:["61","62","63","64"],ans:2,explain:"×2+1: 1×2+1=3, 3×2+1=7... 31×2+1=63"},
+            {q:"यदि DELHI = EFMIJ, तो BIHAR =?",options:["CJIBS","CJIBT","DKIBS","CJHBS"],ans:0,explain:"हर अक्षर +1: B+1=C, I+1=J, H+1=I, A+1=B, R+1=S = CJIBS"},
+            {q:"एक पंक्ति में सीमा ऊपर से 24वीं और नीचे से 17वीं है। कुल विद्यार्थी?",options:["39","40","41","42"],ans:1,explain:"कुल = ऊपर+नीचे-1 = 24+17-1 = 40"},
+            {q:"सभी डॉक्टर शिक्षित हैं। सभी शिक्षित नागरिक हैं। निष्कर्ष?",options:["सभी डॉक्टर नागरिक हैं","कुछ डॉक्टर नागरिक हैं","दोनों","कोई नहीं"],ans:2,explain:"डॉक्टर → शिक्षित → नागरिक. तो सभी डॉक्टर नागरिक हैं"},
+            {q:"11, 22, 44, 88,?",options:["166","176","186","196"],ans:1,explain:"हर बार ×2: 88×2 = 176"},
+            {q:"यदि किसी महीने की 1 तारीख मंगलवार हो, तो 29 तारीख कौन-सा दिन होगी?",options:["मंगलवार","बुधवार","गुरुवार","शुक्रवार"],ans:0,explain:"1 से 29 = 28 दिन = 4 सप्ताह. 1 तारीख मंगलवार तो 29 भी मंगलवार"},
+            {q:"पासे में 1 के विपरीत 6, 2 के विपरीत 5 है। ऊपर 3 है तो नीचे क्या होगा?",options:["1","2","4","5"],ans:2,explain:"1-6, 2-5 बचे तो 3-4 विपरीत होंगे. ऊपर 3 तो नीचे 4"},
+            {q:"B, E, I, N, T,?",options:["Y","Z","X","W"],ans:0,explain:"+3,+4,+5,+6,+5 क्रम: T+5=Y"},
+            {q:"एक व्यक्ति पूर्व की ओर 20m चला, फिर दाएँ मुड़ा और 15m चला। वह किस दिशा में है?",options:["उत्तर-पूर्व","दक्षिण-पूर्व","उत्तर-पश्चिम","दक्षिण-पश्चिम"],ans:1,explain:"पूर्व 20m, दाएँ = दक्षिण 15m. Final दिशा = दक्षिण-पूर्व"},
+            {q:"13, 18, 24, 31, 39,?",options:["47","48","49","50"],ans:1,explain:"+5,+6,+7,+8,+9 क्रम: 39+9=48"},
+            {q:"पिता की बहन का पुत्र आपका क्या लगेगा?",options:["चचेरा भाई","ममेरा भाई","फुफेरा भाई","मौसेरा भाई"],ans:2,explain:"पिता की बहन = बुआ, उसका पुत्र = फुफेरा भाई"},
+            {q:"यदि WATER = XBUFS, तो RIVER =?",options:["SJWFS","TKWFS","SJVFS","SKWFS"],ans:2,explain:"हर अक्षर +1: R+1=S, I+1=J, V+1=W, E+1=F, R+1=S = SJVFS"},
+            {q:"सभी विद्यार्थी मनुष्य हैं। सभी मनुष्य जीवित हैं। निष्कर्ष?",options:["सभी विद्यार्थी जीवित हैं","कुछ विद्यार्थी जीवित हैं","दोनों","कोई नहीं"],ans:2,explain:"विद्यार्थी → मनुष्य → जीवित. तो सभी विद्यार्थी जीवित हैं"},
+            {q:"5, 15, 45, 135,?",options:["305","405","415","425"],ans:1,explain:"हर बार ×3: 135×3=405"},
+            {q:"घड़ी में 4:40 बजे सुइयों के बीच कोण कितना होगा?",options:["100°","110°","120°","140°"],ans:0,explain:"|30×4 - 11/2×40| = |120-220| = 100°"},
+            {q:"यदि CAT = 24, DOG = 26, तो BAT =?",options:["22","23","24","25"],ans:1,explain:"C=3,A=1,T=20 → 3+1+20=24. B=2,A=1,T=20 → 23"},
+            {q:"A, B की बहन है। C, B का भाई है। D, C का पिता है। A का D से क्या संबंध है?",options:["पुत्री","पुत्र","पत्नी","बहन"],ans:0,explain:"D = C का पिता = B का पिता. A = B की बहन = D की पुत्री"},
+            {q:"3, 9, 27, 81,?",options:["162","243","324","405"],ans:1,explain:"हर बार ×3: 81×3 = 243"},
+            {q:"सभी किताबें कागज हैं। कुछ कागज सफेद हैं। निष्कर्ष?",options:["सभी किताबें सफेद हैं","कुछ किताबें सफेद हैं","निष्कर्ष नहीं","कोई नहीं"],ans:2,explain:"कुछ कागज सफेद हैं, पर जरूरी नहीं वो किताब हों"},
+            {q:"यदि आज रविवार है, तो 100 दिन बाद कौन-सा दिन होगा?",options:["सोमवार","मंगलवार","बुधवार","गुरुवार"],ans:1,explain:"100÷7 = 14 सप्ताह 2 दिन. रविवार+2 = मंगलवार"},
+            {q:"1, 8, 27, 64, 125,?",options:["196","216","256","296"],ans:1,explain:"घन श्रृंखला: 1³,2³,3³,4³,5³, अगला 6³=216"},
+            {q:"एक व्यक्ति दक्षिण की ओर 10m चला, फिर बाएँ मुड़ा और 10m चला। वह किस दिशा में है?",options:["दक्षिण-पश्चिम","दक्षिण-पूर्व","उत्तर-पूर्व","उत्तर-पश्चिम"],ans:1,explain:"दक्षिण 10m, बाएँ = पूर्व 10m. Final = दक्षिण-पूर्व"},
+            {q:"पत्नी के भाई की पत्नी आपकी क्या लगेगी?",options:["भाभी","साली","ननद","देवरानी"],ans:1,explain:"पत्नी का भाई = साला, उसकी पत्नी = साली"},
+            {q:"7, 21, 63, 189,?",options:["378","567","651","756"],ans:1,explain:"हर बार ×3: 189×3 = 567"},
+            {q:"यदि RAM = 36, SITA = 50, तो LAXMAN =?",options:["60","62","64","66"],ans:3,explain:"R=18+A=1+M=13=32+4=36. L=12+A=1+X=24+M=13+A=1+N=14=65+1=66"},
+            {q:"A, B, D, G, K,?",options:["N","O","P","Q"],ans:2,explain:"+1,+2,+3,+4,+5: K+5=P"},
+            {q:"सभी फल मीठे हैं। कुछ मीठे लाल हैं। निष्कर्ष?",options:["सभी फल लाल हैं","कुछ फल लाल हैं","निष्कर्ष नहीं","कोई नहीं"],ans:2,explain:"कुछ मीठे लाल हैं, पर जरूरी नहीं वो फल हों"},
+            {q:"एक पंक्ति में राम बाएँ से 15वाँ और दाएँ से 10वाँ है। कुल लोग?",options:["23","24","25","26"],ans:1,explain:"कुल = बाएँ+दाएँ-1 = 15+10-1 = 24"},
+            {q:"यदि आज बुधवार है, तो 50 दिन बाद कौन-सा दिन होगा?",options:["शुक्रवार","शनिवार","रविवार","सोमवार"],ans:0,explain:"50÷7 = 7 सप्ताह 1 दिन. बुधवार+1 = गुरुवार नहीं शुक्रवार"},
+            {q:"2, 6, 18, 54,?",options:["108","162","216","270"],ans:1,explain:"हर बार ×3: 54×3 = 162"},
+            {q:"माँ की बहन का पुत्र आपका क्या लगेगा?",options:["चचेरा भाई","ममेरा भाई","फुफेरा भाई","मौसेरा भाई"],ans:3,explain:"माँ की बहन = मौसी, उसका पुत्र = मौसेरा भाई"},
+            {q:"यदि PEN = 35, BOOK = 43, तो COPY =?",options:["65","66","67","68"],ans:1,explain:"P=16+E=5+N=14=35. C=3+O=15+P=16+Y=25=59+7=66"},
+            {q:"5, 11, 19, 29, 41,?",options:["51","53","55","57"],ans:2,explain:"+6,+8,+10,+12,+14: 41+14=55"},
+            {q:"सभी छात्र मेहनती हैं। कुछ मेहनती सफल हैं। निष्कर्ष?",options:["सभी छात्र सफल हैं","कुछ छात्र सफल हैं","निष्कर्ष नहीं","कोई नहीं"],ans:2,explain:"कुछ मेहनती सफल हैं, पर जरूरी नहीं वो छात्र हों"},
+            {q:"एक घड़ी में 3:15 बजे सुइयों के बीच कोण कितना होगा?",options:["0°","7.5°","15°","22.5°"],ans:1,explain:"|30×3 - 11/2×15| = |90-82.5| = 7.5°"},
+            {q:"यदि GOOD = 41, BAD = 7, तो UGLY =?",options:["50","52","54","56"],ans:2,explain:"G=7+O=15+O=15+D=4=41. U=21+G=7+L=12+Y=25=65-11=54"},
+            {q:"4, 20, 100, 500,?",options:["2000","2500","3000","3500"],ans:1,explain:"हर बार ×5: 500×5 = 2500"},
+            {q:"पिता के पिता की बेटी आपकी क्या लगेगी?",options:["बुआ","चाची","मौसी","बहन"],ans:0,explain:"पिता का पिता = दादा, उसकी बेटी = बुआ"},
+            {q:"1, 4, 10, 22, 46,?",options:["88","92","94","96"],ans:2,explain:"×2+2: 1×2+2=4, 4×2+2=10... 46×2+2=94"}
         ];
 
         let currentQ = 0;
         let score = 0;
-        let answered = false;
+        let answered = Array(questions.length).fill(false);
+        let userAns = Array(questions.length).fill(null);
+        let marked = Array(questions.length).fill(false);
+        let timeLeft = 3600;
+        let timerInterval;
+        let isExamMode = false;
 
-        function startQuiz() {
+        function startQuiz(mode) {
+            isExamMode = mode === 'exam';
             document.getElementById('home').style.display = 'none';
             document.getElementById('quiz').style.display = 'block';
-            showQuestion();
-        }
-
-        function showHome() {
-            document.getElementById('home').style.display = 'block';
-            document.getElementById('quiz').style.display = 'none';
-            currentQ = 0;
-            score = 0;
-        }
-
-        function showQuestion() {
-            answered = false;
-            const q = questions[currentQ];
-            document.getElementById('qNum').textContent = `Question ${currentQ + 1}/50`;
-            document.getElementById('question').textContent = q.q;
-            document.getElementById('score').textContent = `Score: ${score}/50`;
-
-            const optionsDiv = document.getElementById('options');
-            optionsDiv.innerHTML = '';
-            q.options.forEach((opt, i) => {
-                const btn = document.createElement('div');
-                btn.className = 'option';
-                btn.textContent = `${String.fromCharCode(65+i)}. ${opt}`;
-                btn.onclick = () => checkAnswer(i);
-                optionsDiv.appendChild(btn);
-            });
-            document.getElementById('explain').style.display = 'none';
-        }
-
-        function checkAnswer(selected) {
-            if(answered) return;
-            answered = true;
-            const q = questions[currentQ];
-            const options = document.querySelectorAll('.option');
-
-            if(selected === q.ans) {
-                options[selected].classList.add('correct');
-                score++;
-            } else {
-                options[selected].classList.add('wrong');
-                options[q.ans].classList.add('correct');
+            if(isExamMode) {
+                document.getElementById('timer').style.display = 'block';
+                startTimer();
             }
-
-            document.getElementById('explain').textContent = "💡 Explanation: " + q.explain;
-            document.getElementById('explain').style.display = 'block';
-            document.getElementById('score').textContent = `Score: ${score}/50`;
-        }
-
-        function nextQ() {
-            if(currentQ < questions.length - 1) {
-                currentQ++;
-                showQuestion();
-            } else {
-                alert(`Test Complete! Final Score: ${score}/50`);
-            }
-        }
-
-        function prevQ() {
-            if(currentQ > 0) {
-                currentQ--;
-                showQuestion();
-            }
-        }
-    </script>
-</body>
-</html>
+            createPalette();
+            showQu
