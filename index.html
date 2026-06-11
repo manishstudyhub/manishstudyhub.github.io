@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Reasoning 200 Q</title>
+<title>Reasoning 200 Q - Final</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#1a1a1a;color:#fff;padding:10px}
@@ -32,7 +32,7 @@ h1{color:#4dabf7;text-align:center;margin-bottom:15px}
 <h1>🎯 Reasoning Practice - 200 Q</h1>
 <div id="home">
 <div style="text-align:center">
-<button class="mode-btn exam-btn" onclick="startQuiz('exam')">📝 Exam Mode</button>
+<button class="mode-btn exam-btn" onclick="startQuiz('exam')">📝 Exam Mode - 60 Min</button>
 <button class="mode-btn" onclick="startQuiz('practice')">📚 Practice Mode</button>
 </div>
 </div>
@@ -59,18 +59,5 @@ h1{color:#4dabf7;text-align:center;margin-bottom:15px}
 </div>
 </div>
 <script>
-const questions=[{q:"आँख : देखना :: कान :?",options:["सुनना","बोलना","छूना","सूंघना"],ans:0,explain:"आँख का काम देखना है, कान का सुनना है"},{q:"2, 4, 8, 16,?",options:["24","30","32","36"],ans:2,explain:"हर बार ×2: 16×2=32"},{q:"A, C, E, G,?",options:["H","I","J","K"],ans:1,explain:"A+2=C, C+2=E, G+2=I"},{q:"पिता : पुत्र :: माता :?",options:["बहन","पुत्री","भाई","पिता"],ans:1,explain:"पिता का पुत्र, माता की पुत्री"},{q:"5, 10, 20, 40,?",options:["60","70","80","90"],ans:2,explain:"हर बार ×2: 40×2=80"},{q:"दिन : रात :: प्रकाश :?",options:["अंधेरा","सूरज","चाँद","तारे"],ans:0,explain:"दिन का विपरीत रात, प्रकाश का अंधेरा"},{q:"4, 9, 16, 25,?",options:["30","36","49","64"],ans:1,explain:"2²,3²,4²,5²,अगला 6²=36"},{q:"डॉक्टर : अस्पताल :: शिक्षक :?",options:["छात्र","विद्यालय","पुस्तक","कक्षा"],ans:1,explain:"डॉक्टर अस्पताल में, शिक्षक विद्यालय में"},{q:"3, 6, 12, 24,?",options:["36","42","48","52"],ans:2,explain:"हर बार ×2: 24×2=48"},{q:"Z, Y, X, W,?",options:["V","U","T","S"],ans:0,explain:"उल्टा क्रम: W-1=V"}];
-for(let i=10;i<200;i++){questions.push({q:`Sample Q${i+1}: 2+2=?`,options:["3","4","5","6"],ans:1,explain:"2+2=4"})}
-let currentQ=0,score=0,answered=Array(200).fill(false),userAns=Array(200).fill(null),timeLeft=3600,timerInterval,isExamMode=false;
-function startQuiz(mode){isExamMode=mode==='exam';document.getElementById('home').style.display='none';document.getElementById('quiz').style.display='block';if(isExamMode){document.getElementById('timer').style.display='block';startTimer()}createPalette();showQuestion()}
-function startTimer(){timerInterval=setInterval(()=>{timeLeft--;let min=Math.floor(timeLeft/60);let sec=timeLeft%60;document.getElementById('timer').textContent=`Time: ${min}:${sec<10?'0'+sec:sec}`;if(timeLeft<=0){clearInterval(timerInterval);submitTest()}},1000)}
-function createPalette(){const palette=document.getElementById('palette');palette.innerHTML='';for(let i=0;i<200;i++){const btn=document.createElement('div');btn.className='q-num';btn.textContent=i+1;btn.onclick=()=>goToQ(i);if(answered[i])btn.classList.add('q-attempted');if(i===currentQ)btn.classList.add('q-current');palette.appendChild(btn)}}
-function goToQ(i){currentQ=i;showQuestion();createPalette()}
-function showQuestion(){const q=questions[currentQ];document.getElementById('qNum').textContent=`Question ${currentQ+1}/200`;document.getElementById('question').textContent=q.q;document.getElementById('score').textContent=`Score: ${score}/200`;const optionsDiv=document.getElementById('options');optionsDiv.innerHTML='';q.options.forEach((opt,i)=>{const btn=document.createElement('div');btn.className='option';btn.textContent=`${String.fromCharCode(65+i)}. ${opt}`;btn.onclick=()=>checkAnswer(i);if(answered[currentQ]&&userAns[currentQ]===i){btn.classList.add(userAns[currentQ]===q.ans?'correct':'wrong')}optionsDiv.appendChild(btn)});document.getElementById('explain').style.display='none'}
-function checkAnswer(i){if(answered[currentQ])return;const q=questions[currentQ];userAns[currentQ]=i;answered[currentQ]=true;if(i===q.ans)score++;const opts=document.querySelectorAll('.option');opts.forEach((opt,idx)=>{if(idx===q.ans)opt.classList.add('correct');else if(idx===i)opt.classList.add('wrong');opt.onclick=null});document.getElementById('explain').textContent=q.explain;document.getElementById('explain').style.display='block';document.getElementById('score').textContent=`Score: ${score}/200`;createPalette()}
-function nextQ(){if(currentQ<199){currentQ++;showQuestion();createPalette()}}
-function prevQ(){if(currentQ>0){currentQ--;showQuestion();createPalette()}}
-function submitTest(){clearInterval(timerInterval);document.getElementById('quiz').style.display='none';document.getElementById('result').style.display='block';let percent=Math.round(score/200*100);document.getElementById('finalScore').textContent=`Your Score: ${score}/200 (${percent}%)`}
-</script>
-</body>
-</html>
+const questions=[
+{q:"आँख : देखना :: कान :?",options:["सुनना","बोलना","छूना","सूंघना"],ans:0,explain:"आँख
