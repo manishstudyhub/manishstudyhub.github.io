@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reasoning Test - 100 Q</title>
+<title>Reasoning Test - 200 Q</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#1a1a1a;color:#fff;padding:10px}
@@ -32,7 +32,7 @@ h1{color:#4dabf7;text-align:center;margin-bottom:15px;font-size:24px}
 </head>
 <body>
 <div class="container">
-<h1>🎯 Reasoning Practice - 100 Q</h1>
+<h1>🎯 Reasoning Practice - 200 Q</h1>
 <p style="text-align:center;margin-bottom:15px;color:#aaa">Class 10 & 12 Level</p>
 <div id="home">
 <h3 style="text-align:center;margin-bottom:10px">Mode Chuno:</h3>
@@ -43,10 +43,10 @@ h1{color:#4dabf7;text-align:center;margin-bottom:15px;font-size:24px}
 </div>
 <div id="quiz" style="display:none">
 <div class="timer" id="timer">Time: 60:00</div>
-<div id="score">Score: 0/100</div>
+<div id="score">Score: 0/200</div>
 <div class="palette" id="palette"></div>
 <div class="question-box">
-<h3 id="qNum">Question 1/100</h3>
+<h3 id="qNum">Question 1/200</h3>
 <p id="question" style="font-size:16px;margin:12px 0"></p>
 <div id="options"></div>
 <div class="explain" id="explain"></div>
@@ -146,38 +146,4 @@ const questions=[
 {q:"A, B की बहन है। C, B का भाई है। D, C का पिता है। A का D से क्या संबंध है?",options:["पुत्री","पुत्र","पत्नी","बहन"],ans:0,explain:"D = C का पिता = B का पिता. A = B की बहन = D की पुत्री"},
 {q:"3, 9, 27, 81,?",options:["162","243","324","405"],ans:1,explain:"हर बार ×3: 81×3 = 243"},
 {q:"सभी किताबें कागज हैं। कुछ कागज सफेद हैं। निष्कर्ष?",options:["सभी किताबें सफेद हैं","कुछ किताबें सफेद हैं","निष्कर्ष नहीं","कोई नहीं"],ans:2,explain:"कुछ कागज सफेद हैं, पर जरूरी नहीं वो किताब हों"},
-{q:"यदि आज रविवार है, तो 100 दिन बाद कौन-सा दिन होगा?",options:["सोमवार","मंगलवार","बुधवार","गुरुवार"],ans:1,explain:"100÷7 = 14 सप्ताह 2 दिन. रविवार+2 = मंगलवार"},
-{q:"1, 8, 27, 64, 125,?",options:["196","216","256","296"],ans:1,explain:"घन श्रृंखला: 1³,2³,3³,4³,5³, अगला 6³=216"},
-{q:"एक व्यक्ति दक्षिण की ओर 10m चला, फिर बाएँ मुड़ा और 10m चला। वह किस दिशा में है?",options:["दक्षिण-पश्चिम","दक्षिण-पूर्व","उत्तर-पूर्व","उत्तर-पश्चिम"],ans:1,explain:"दक्षिण 10m, बाएँ = पूर्व 10m. Final = दक्षिण-पूर्व"},
-{q:"पत्नी के भाई की पत्नी आपकी क्या लगेगी?",options:["भाभी","साली","ननद","देवरानी"],ans:1,explain:"पत्नी का भाई = साला, उसकी पत्नी = साली"},
-{q:"7, 21, 63, 189,?",options:["378","567","651","756"],ans:1,explain:"हर बार ×3: 189×3 = 567"},
-{q:"यदि RAM = 36, SITA = 50, तो LAXMAN =?",options:["60","62","64","66"],ans:3,explain:"R=18+A=1+M=13=32+4=36. L=12+A=1+X=24+M=13+A=1+N=14=65+1=66"},
-{q:"A, B, D, G, K,?",options:["N","O","P","Q"],ans:2,explain:"+1,+2,+3,+4,+5: K+5=P"},
-{q:"सभी फल मीठे हैं। कुछ मीठे लाल हैं। निष्कर्ष?",options:["सभी फल लाल हैं","कुछ फल लाल हैं","निष्कर्ष नहीं","कोई नहीं"],ans:2,explain:"कुछ मीठे लाल हैं, पर जरूरी नहीं वो फल हों"},
-{q:"एक पंक्ति में राम बाएँ से 15वाँ और दाएँ से 10वाँ है। कुल लोग?",options:["23","24","25","26"],ans:1,explain:"कुल = बाएँ+दाएँ-1 = 15+10-1 = 24"},
-{q:"यदि आज बुधवार है, तो 50 दिन बाद कौन-सा दिन होगा?",options:["शुक्रवार","शनिवार","रविवार","सोमवार"],ans:0,explain:"50÷7 = 7 सप्ताह 1 दिन. बुधवार+1 = गुरुवार नहीं शुक्रवार"},
-{q:"2, 6, 18, 54,?",options:["108","162","216","270"],ans:1,explain:"हर बार ×3: 54×3 = 162"},
-{q:"माँ की बहन का पुत्र आपका क्या लगेगा?",options:["चचेरा भाई","ममेरा भाई","फुफेरा भाई","मौसेरा भाई"],ans:3,explain:"माँ की बहन = मौसी, उसका पुत्र = मौसेरा भाई"},
-{q:"यदि PEN = 35, BOOK = 43, तो COPY =?",options:["65","66","67","68"],ans:1,explain:"P=16+E=5+N=14=35. C=3+O=15+P=16+Y=25=59+7=66"},
-{q:"5, 11, 19, 29, 41,?",options:["51","53","55","57"],ans:2,explain:"+6,+8,+10,+12,+14: 41+14=55"},
-{q:"सभी छात्र मेहनती हैं। कुछ मेहनती सफल हैं। निष्कर्ष?",options:["सभी छात्र सफल हैं","कुछ छात्र सफल हैं","निष्कर्ष नहीं","कोई नहीं"],ans:2,explain:"कुछ मेहनती सफल हैं, पर जरूरी नहीं वो छात्र हों"},
-{q:"एक घड़ी में 3:15 बजे सुइयों के बीच कोण कितना होगा?",options:["0°","7.5°","15°","22.5°"],ans:1,explain:"|30×3 - 11/2×15| = |90-82.5| = 7.5°"},
-{q:"यदि GOOD = 41, BAD = 7, तो UGLY =?",options:["50","52","54","56"],ans:2,explain:"G=7+O=15+O=15+D=4=41. U=21+G=7+L=12+Y=25=65-11=54"},
-{q:"4, 20, 100, 500,?",options:["2000","2500","3000","3500"],ans:1,explain:"हर बार ×5: 500×5 = 2500"},
-{q:"पिता के पिता की बेटी आपकी क्या लगेगी?",options:["बुआ","चाची","मौसी","बहन"],ans:0,explain:"पिता का पिता = दादा, उसकी बेटी = बुआ"},
-{q:"1, 4, 10, 22, 46,?",options:["88","92","94","96"],ans:2,explain:"×2+2: 1×2+2=4, 4×2+2=10... 46×2+2=94"}
-];
-let currentQ=0,score=0,answered=Array(100).fill(false),userAns=Array(100).fill(null),marked=Array(100).fill(false),timeLeft=3600,timerInterval,isExamMode=false;
-function startQuiz(mode){isExamMode=mode==='exam';document.getElementById('home').style.display='none';document.getElementById('quiz').style.display='block';if(isExamMode){document.getElementById('timer').style.display='block';startTimer()}createPalette();showQuestion()}
-function startTimer(){timerInterval=setInterval(()=>{timeLeft--;let min=Math.floor(timeLeft/60);let sec=timeLeft%60;document.getElementById('timer').textContent=`Time: ${min}:${sec<10?'0'+sec:sec}`;if(timeLeft<=0){clearInterval(timerInterval);submitTest()}},1000)}
-function createPalette(){const palette=document.getElementById('palette');palette.innerHTML='';for(let i=0;i<100;i++){const btn=document.createElement('div');btn.className='q-num';btn.textContent=i+1;btn.onclick=()=>goToQ(i);if(answered[i])btn.classList.add('q-attempted');if(marked[i])btn.classList.add('q-marked');if(i===currentQ)btn.classList.add('q-current');palette.appendChild(btn)}}
-function goToQ(index){currentQ=index;showQuestion();createPalette()}
-function showQuestion(){const q=questions[currentQ];document.getElementById('qNum').textContent=`Question ${currentQ+1}/100`;document.getElementById('question').textContent=q.q;document.getElementById('score').textContent=`Score: ${score}/100`;const optionsDiv=document.getElementById('options');optionsDiv.innerHTML='';q.options.forEach((opt,i)=>{const btn=document.createElement('div');btn.className='option';btn.textContent=`${String.fromCharCode(65+i)}. ${opt}`;btn.onclick=()=>checkAnswer(i);if(answered[currentQ]&&userAns[currentQ]===i){btn.classList.add(userAns[currentQ]===q.ans?'correct':'wrong')}optionsDiv.appendChild(btn)});document.getElementById('explain').style.display='none'}
-function checkAnswer(i){if(answered[currentQ])return;const q=questions[currentQ];userAns[currentQ]=i;answered[currentQ]=true;if(i===q.ans)score++;const opts=document.querySelectorAll('.option');opts.forEach((opt,idx)=>{if(idx===q.ans)opt.classList.add('correct');else if(idx===i)opt.classList.add('wrong');opt.onclick=null});document.getElementById('explain').textContent=q.explain;document.getElementById('explain').style.display='block';document.getElementById('score').textContent=`Score: ${score}/100`;createPalette()}
-function nextQ(){if(currentQ<99){currentQ++;showQuestion();createPalette()}}
-function prevQ(){if(currentQ>0){currentQ--;showQuestion();createPalette()}}
-function markReview(){marked[currentQ]=!marked[currentQ];createPalette()}
-function submitTest(){clearInterval(timerInterval);document.getElementById('quiz').style.display='none';document.getElementById('result').style.display='block';let percent=Math.round(score);document.getElementById('finalScore').textContent=`Your Score: ${score}/100 (${percent}%)`;let msg='';if(percent>=90)msg='🔥 Excellent! Topper Material!';else if(percent>=75)msg='💪 Very Good! Bas thoda aur practice!';else if(percent>=60)msg='👍 Good! Practice karo, ho jayega!';else msg='📚 Aur mehnat karo. Daily 2 hour do!';document.getElementById('analysis').textContent=msg}
-</script>
-</body>
-</html>
+{q:"यदि आज रविवार है, तो 100 दिन बाद कौन-सा दिन होगा?",options:["सोमवार","मंगलवार","बुधवार","गुरुवार"],ans:1,
