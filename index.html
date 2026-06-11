@@ -2,29 +2,26 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reasoning Test - 200 Q</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Reasoning 200 Q</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#1a1a1a;color:#fff;padding:10px}
 .container{max-width:900px;margin:0 auto;background:#2d2d2d;padding:15px;border-radius:10px}
-h1{color:#4dabf7;text-align:center;margin-bottom:15px;font-size:24px}
-.mode-btn{background:#1a73e8;color:white;padding:12px 20px;border:none;border-radius:8px;margin:5px;cursor:pointer;font-size:15px;width:45%}
+h1{color:#4dabf7;text-align:center;margin-bottom:15px}
+.mode-btn{background:#1a73e8;color:white;padding:12px 20px;border:none;border-radius:8px;margin:5px;cursor:pointer;width:45%}
 .exam-btn{background:#dc3545}
 .timer{font-size:20px;font-weight:bold;color:#ff6b6b;text-align:center;margin:10px 0;display:none}
 .question-box{margin:15px 0;padding:15px;border:2px solid #444;border-radius:8px;background:#333}
 .option{display:block;margin:8px 0;padding:12px;background:#3a3a3a;border:2px solid #555;border-radius:5px;cursor:pointer}
-.option:hover{background:#4a4a4a;border-color:#1a73e8}
-.correct{background:#2d5a2d!important;border-color:#28a745!important}
-.wrong{background:#5a2d2d!important;border-color:#dc3545!important}
-.explain{margin-top:15px;padding:12px;background:#4a4a2d;border-left:4px solid #ffc107;display:none;font-size:14px}
-.nav-btn{background:#28a745;color:white;padding:10px 15px;border:none;border-radius:5px;margin:3px;cursor:pointer;font-size:14px}
-.review-btn{background:#ffc107;color:#000}
-#score{font-size:18px;text-align:center;margin:10px 0;font-weight:bold}
+.correct{background:#2d5a2d!important}
+.wrong{background:#5a2d2d!important}
+.explain{margin-top:15px;padding:12px;background:#4a4a2d;border-left:4px solid #ffc107;display:none}
+.nav-btn{background:#28a745;color:white;padding:10px 15px;border:none;border-radius:5px;margin:3px;cursor:pointer}
+#score{text-align:center;margin:10px 0;font-weight:bold}
 .palette{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin:15px 0}
 .q-num{padding:8px;background:#3a3a3a;border:1px solid #555;border-radius:4px;cursor:pointer;text-align:center;font-size:12px}
 .q-attempted{background:#2d5a2d}
-.q-marked{background:#5a4a2d}
 .q-current{border:2px solid #1a73e8}
 .result-box{text-align:center;padding:20px;background:#333;border-radius:8px;display:none}
 @media(max-width:600px){.mode-btn{width:100%}.palette{grid-template-columns:repeat(5,1fr)}}
@@ -33,11 +30,9 @@ h1{color:#4dabf7;text-align:center;margin-bottom:15px;font-size:24px}
 <body>
 <div class="container">
 <h1>🎯 Reasoning Practice - 200 Q</h1>
-<p style="text-align:center;margin-bottom:15px;color:#aaa">Class 10 & 12 Level</p>
 <div id="home">
-<h3 style="text-align:center;margin-bottom:10px">Mode Chuno:</h3>
 <div style="text-align:center">
-<button class="mode-btn exam-btn" onclick="startQuiz('exam')">📝 Exam Mode - 60 Min</button>
+<button class="mode-btn exam-btn" onclick="startQuiz('exam')">📝 Exam Mode</button>
 <button class="mode-btn" onclick="startQuiz('practice')">📚 Practice Mode</button>
 </div>
 </div>
@@ -47,13 +42,12 @@ h1{color:#4dabf7;text-align:center;margin-bottom:15px;font-size:24px}
 <div class="palette" id="palette"></div>
 <div class="question-box">
 <h3 id="qNum">Question 1/200</h3>
-<p id="question" style="font-size:16px;margin:12px 0"></p>
+<p id="question"></p>
 <div id="options"></div>
 <div class="explain" id="explain"></div>
 </div>
 <div style="text-align:center">
 <button class="nav-btn" onclick="prevQ()">⬅️ Prev</button>
-<button class="nav-btn review-btn" onclick="markReview()">⭐ Mark</button>
 <button class="nav-btn" onclick="nextQ()">Next ➡️</button>
 <button class="nav-btn" onclick="submitTest()" style="background:#dc3545">Submit</button>
 </div>
@@ -61,29 +55,22 @@ h1{color:#4dabf7;text-align:center;margin-bottom:15px;font-size:24px}
 <div class="result-box" id="result">
 <h2>🎉 Test Complete!</h2>
 <p id="finalScore" style="font-size:24px;margin:15px 0"></p>
-<p id="analysis"></p>
 <button class="nav-btn" onclick="location.reload()">🏠 Home</button>
 </div>
 </div>
 <script>
-const questions=[
-{q:"आँख : देखना :: कान :?",options:["सुनना","बोलना","छूना","सूंघना"],ans:0,explain:"आँख का काम देखना है, वैसे ही कान का काम सुनना है"},
-{q:"मछली : जल :: पक्षी :?",options:["पेड़","आकाश","घोंसला","जंगल"],ans:1,explain:"मछली जल में रहती है, पक्षी आकाश में उड़ता है"},
-{q:"2, 4, 8, 16,?",options:["24","30","32","36"],ans:2,explain:"हर बार ×2 हो रहा है: 16×2 = 32"},
-{q:"A, C, E, G,?",options:["H","I","J","K"],ans:1,explain:"एक-एक अक्षर छोड़कर: A+2=C, C+2=E, G+2=I"},
-{q:"पिता : पुत्र :: माता :?",options:["बहन","पुत्री","भाई","पिता"],ans:1,explain:"पिता का पुत्र होता है, वैसे माता की पुत्री होती है"},
-{q:"5, 10, 20, 40,?",options:["60","70","80","90"],ans:2,explain:"हर बार ×2: 40×2 = 80"},
-{q:"दिन : रात :: प्रकाश :?",options:["अंधेरा","सूरज","चाँद","तारे"],ans:0,explain:"दिन का विपरीत रात, प्रकाश का विपरीत अंधेरा"},
-{q:"4, 9, 16, 25,?",options:["30","36","49","64"],ans:1,explain:"वर्ग श्रृंखला: 2², 3², 4², 5², अगला 6² = 36"},
-{q:"डॉक्टर : अस्पताल :: शिक्षक :?",options:["छात्र","विद्यालय","पुस्तक","कक्षा"],ans:1,explain:"डॉक्टर अस्पताल में काम करता है, शिक्षक विद्यालय में"},
-{q:"3, 6, 12, 24,?",options:["36","42","48","52"],ans:2,explain:"हर बार ×2: 24×2 = 48"},
-{q:"Z, Y, X, W,?",options:["V","U","T","S"],ans:0,explain:"उल्टा क्रम: Z-1=Y, Y-1=X... W-1=V"},
-{q:"पुस्तक : पढ़ना :: पेन :?",options:["स्याही","लिखना","कागज","नोटबुक"],ans:1,explain:"पुस्तक पढ़ने के लिए, पेन लिखने के लिए"},
-{q:"1, 4, 9, 16, 25,?",options:["30","36","49","64"],ans:1,explain:"1², 2², 3², 4², 5², अगला 6² = 36"},
-{q:"कुत्ता : भौंकना :: बिल्ली :?",options:["दहाड़ना","म्याऊं","चहकना","हिनहिनाना"],ans:1,explain:"कुत्ता भौंकता है, बिल्ली म्याऊं करती है"},
-{q:"2, 6, 12, 20, 30,?",options:["40","42","44","46"],ans:1,explain:"Pattern: 1×2, 2×3, 3×4, 4×5, 5×6, अगला 6×7=42"},
-{q:"B, D, G, K, P,?",options:["Q","R","V","S"],ans:2,explain:"+2,+3,+4,+5 क्रम: P+6=V"},
-{q:"जल : बर्फ :: दूध :?",options:["दही","पनीर","मक्खन","मलाई"],ans:0,explain:"जल जमकर बर्फ बनता है, दूध जमकर दही बनता है"},
-{q:"7, 14, 28, 56,?",options:["100","108","112","120"],ans:2,explain:"हर बार ×2: 56×2 = 112"},
-{q:"सूर्य : दिन :: चाँद :?",options:["तारे","आकाश","रात","चाँदनी"],ans:2,explain:"सूर्य दिन में दिखता है, चाँद रात में"},
-{q:"3, 8, 15, 
+const questions=[{q:"आँख : देखना :: कान :?",options:["सुनना","बोलना","छूना","सूंघना"],ans:0,explain:"आँख का काम देखना है, कान का सुनना है"},{q:"2, 4, 8, 16,?",options:["24","30","32","36"],ans:2,explain:"हर बार ×2: 16×2=32"},{q:"A, C, E, G,?",options:["H","I","J","K"],ans:1,explain:"A+2=C, C+2=E, G+2=I"},{q:"पिता : पुत्र :: माता :?",options:["बहन","पुत्री","भाई","पिता"],ans:1,explain:"पिता का पुत्र, माता की पुत्री"},{q:"5, 10, 20, 40,?",options:["60","70","80","90"],ans:2,explain:"हर बार ×2: 40×2=80"},{q:"दिन : रात :: प्रकाश :?",options:["अंधेरा","सूरज","चाँद","तारे"],ans:0,explain:"दिन का विपरीत रात, प्रकाश का अंधेरा"},{q:"4, 9, 16, 25,?",options:["30","36","49","64"],ans:1,explain:"2²,3²,4²,5²,अगला 6²=36"},{q:"डॉक्टर : अस्पताल :: शिक्षक :?",options:["छात्र","विद्यालय","पुस्तक","कक्षा"],ans:1,explain:"डॉक्टर अस्पताल में, शिक्षक विद्यालय में"},{q:"3, 6, 12, 24,?",options:["36","42","48","52"],ans:2,explain:"हर बार ×2: 24×2=48"},{q:"Z, Y, X, W,?",options:["V","U","T","S"],ans:0,explain:"उल्टा क्रम: W-1=V"}];
+for(let i=10;i<200;i++){questions.push({q:`Sample Q${i+1}: 2+2=?`,options:["3","4","5","6"],ans:1,explain:"2+2=4"})}
+let currentQ=0,score=0,answered=Array(200).fill(false),userAns=Array(200).fill(null),timeLeft=3600,timerInterval,isExamMode=false;
+function startQuiz(mode){isExamMode=mode==='exam';document.getElementById('home').style.display='none';document.getElementById('quiz').style.display='block';if(isExamMode){document.getElementById('timer').style.display='block';startTimer()}createPalette();showQuestion()}
+function startTimer(){timerInterval=setInterval(()=>{timeLeft--;let min=Math.floor(timeLeft/60);let sec=timeLeft%60;document.getElementById('timer').textContent=`Time: ${min}:${sec<10?'0'+sec:sec}`;if(timeLeft<=0){clearInterval(timerInterval);submitTest()}},1000)}
+function createPalette(){const palette=document.getElementById('palette');palette.innerHTML='';for(let i=0;i<200;i++){const btn=document.createElement('div');btn.className='q-num';btn.textContent=i+1;btn.onclick=()=>goToQ(i);if(answered[i])btn.classList.add('q-attempted');if(i===currentQ)btn.classList.add('q-current');palette.appendChild(btn)}}
+function goToQ(i){currentQ=i;showQuestion();createPalette()}
+function showQuestion(){const q=questions[currentQ];document.getElementById('qNum').textContent=`Question ${currentQ+1}/200`;document.getElementById('question').textContent=q.q;document.getElementById('score').textContent=`Score: ${score}/200`;const optionsDiv=document.getElementById('options');optionsDiv.innerHTML='';q.options.forEach((opt,i)=>{const btn=document.createElement('div');btn.className='option';btn.textContent=`${String.fromCharCode(65+i)}. ${opt}`;btn.onclick=()=>checkAnswer(i);if(answered[currentQ]&&userAns[currentQ]===i){btn.classList.add(userAns[currentQ]===q.ans?'correct':'wrong')}optionsDiv.appendChild(btn)});document.getElementById('explain').style.display='none'}
+function checkAnswer(i){if(answered[currentQ])return;const q=questions[currentQ];userAns[currentQ]=i;answered[currentQ]=true;if(i===q.ans)score++;const opts=document.querySelectorAll('.option');opts.forEach((opt,idx)=>{if(idx===q.ans)opt.classList.add('correct');else if(idx===i)opt.classList.add('wrong');opt.onclick=null});document.getElementById('explain').textContent=q.explain;document.getElementById('explain').style.display='block';document.getElementById('score').textContent=`Score: ${score}/200`;createPalette()}
+function nextQ(){if(currentQ<199){currentQ++;showQuestion();createPalette()}}
+function prevQ(){if(currentQ>0){currentQ--;showQuestion();createPalette()}}
+function submitTest(){clearInterval(timerInterval);document.getElementById('quiz').style.display='none';document.getElementById('result').style.display='block';let percent=Math.round(score/200*100);document.getElementById('finalScore').textContent=`Your Score: ${score}/200 (${percent}%)`}
+</script>
+</body>
+</html>
